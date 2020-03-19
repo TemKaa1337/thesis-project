@@ -7,6 +7,9 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
+        <link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
+        <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
+
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
