@@ -4,19 +4,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Cinema ticket booking</title>
 
         <link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
-        <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
 
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <style>
-        </style>
+        <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
     </head>
     <body>
         <header>
             <div class = "container">
-                <a href = "/" class = "header-logo">LOGO</a>
+                <a class = "header-logo"><img class = "header-logo-image" src = "{{ URL::asset('img/popcorn_transparent.png') }}" ></a>
                 <nav>
                     <ul>
                         <li><a href = "mainpage">Main page</a></li>
