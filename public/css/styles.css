@@ -1,0 +1,33 @@
+header {
+	background-color: #d6d6e6;
+}
+
+.header-logo {
+  float: left;
+}
+
+nav {
+	float: right;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+nav li {
+	display: inline-block;
+}
+
+.container {
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.container:after {
+	content: '';
+	display: table;
+	clear: both;
+}
