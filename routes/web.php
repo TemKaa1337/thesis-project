@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
+
+Route::get('/film_description', function () {
+    return view('film_description');
+});
+
+Route::get('/signup', 'RegistrationController@create');
+Route::post('signup', 'RegistrationController@store');
+ 
+Route::get('/signin', 'SessionsController@create');
+Route::post('/signin', 'SessionsController@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

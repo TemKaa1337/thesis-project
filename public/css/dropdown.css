@@ -1,0 +1,23 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    color: white;
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdown select {
+    cursor: pointer;
+    background-color:#5f5f5f;
+    color: #fff;
+    font-size: 15px;
+    padding: .2em;
+    border: 1px white solid;
+    border-radius: 4px;
+    text-overflow: '';
+}
+
+.dropdown select:focus{
+    outline: 0;
+}
