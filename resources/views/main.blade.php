@@ -32,14 +32,8 @@
                 <a href="#" class="control_next">></a>
                 <a href="#" class="control_prev"><</a>
                 <ul>
-                    <li><img src = "{{ asset('img/film_slider/maxresdefault.jpg') }}"></img></li>
-                    <li style="background: #aaa;"><img src = "{{ asset('img/film_slider/example2.jpg') }}"></img></li>
-                    <li>SLIDE 3</li>
-                    <li style="background: #aaa;"><img src = "{{ asset('img/film_slider/example3.jpg') }}"></img></li>
-                    <!-- <li>SLIDE 1</li>
-                    <li>SLIDE 2</li>
-                    <li>SLIDE 3</li>
-                    <li>SLIDE 4</li> -->
+                    <li><img src = "{{ asset('img/film_slider/nice_1.jpg') }}"></img></li>
+                    <li><img src = "{{ asset('img/film_slider/nice_2.jpg') }}"></img></li>
                 </ul>  
             </div>
 

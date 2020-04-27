@@ -8,6 +8,7 @@
         <link href = "{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/slider.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/film_page_styles.css') }}" rel="stylesheet" type="text/css" >
+        <link href = "{{ URL::asset('css/submit_comment.css') }}" rel="stylesheet" type="text/css" >
         <!-- <link href = "{{ URL::asset('css/button.css') }}" rel="stylesheet" type="text/css" > -->
         <!-- <link href = "{{ URL::asset('css/dropdown.css') }}" rel="stylesheet" type="text/css" > -->
     </head>
@@ -33,10 +34,8 @@
                 <a href = "#" class = "control_next">></a>
                 <a href = "#" class = "control_prev"><</a>
                 <ul>
-                    <li><img src = "{{ asset('img/film_slider/maxresdefault.jpg') }}"></img></li>
-                    <li style="background: #aaa;"><img src = "{{ asset('img/film_slider/example2.jpg') }}"></img></li>
-                    <li>SLIDE 3</li>
-                    <li style="background: #aaa;"><img src = "{{ asset('img/film_slider/example3.jpg') }}"></img></li>
+                    <li><img src = "{{ asset('img/film_slider/nice_1.jpg') }}"></img></li>
+                    <li><img src = "{{ asset('img/film_slider/nice_2.jpg') }}"></img></li>
                 </ul>  
             </div>
             <div></div>
@@ -44,12 +43,12 @@
             <div></div>
             <div class = "film_page_content">
                 <div class = "film_page_preview">
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
+                    <img class = "film_image_name" src = "{{ asset('img/film_page/example.jpg') }}" style = "width: 270px;"></img>
                 </div>
                 <div class = "film_page_description">
-                    <h1>Название фильма</h1>
+                    <h1>Я все еще верю</h1>
                     <hr></hr>
-                    <div>
+                    <div class = "">
                         <table>
                             <tbody>
                                 <tr>
@@ -65,7 +64,24 @@
                             </tbody>
                         </table>
                     </div>
-                    <div>Vibrat kinoteatr i vremya</div>
+                    <div style = "height: 50px;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Кинотеатр Беларусь:</td>
+                                    <td><a class = "session_time">17:10</a></td>
+                                    <td><a class = "session_time">19:10</a></td>
+                                    <td><a class = "session_time">21:10</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Кинотеатр Лохотрон:</td>
+                                    <td><a class = "session_time">17:10</a></td>
+                                    <td><a class = "session_time">19:10</a></td>
+                                    <td><a class = "session_time">21:10</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <hr></hr>
                 </div>
                 <div class = "film_page_characteristics">
@@ -103,14 +119,36 @@
                     </table>
                 </div>
                 <div class = "film_page_other">
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
+                    <h3>Описание фильма</h3>
+                    <p id = "p_description">Паша, сербский сердцеед и весельчак, — хозяин пятизвездочного отеля в Белграде. Он живет, не зная бед, пока однажды совершенно случайно не портит новое — многомиллионное! — приобретение коллекционера-мафиози. В уплату долга криминальный босс заставляет Пашу жениться на своей дочке. Девушка начинает рьяно готовиться к свадьбе с красавчиком отельером, когда Паша после четырехлетней разлуки неожиданно сталкивается с Дашей, своей русской любовью. В романтичной атмосфере древнего города чувства между ними готовы вспыхнуть вновь…если бы не будущий тесть, настоящий муж, слепой дед и друг-банкрот!..</p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/1ZV0WoipyC4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class = "leave_comment">
+                        <form action="#" method="post">
+                            <textarea placeholder = "Оставьте отзыв."></textarea>
+                            <button type="submit">Отправить</button>
+                        </form>
+                    </div>
+                    <div class = "comment_wrapper">
+                        <hr></hr>
+                        <div class="comment_container">
+                            <img src = "{{ asset('img/avatars/avatar.png') }}" alt="Avatar" style="width:90px">
+                            <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
+                            <p>Фильм говно</p>
+                        </div>
+
+                        <hr></hr>
+                        <div class="comment_container">
+                            <img src = "{{ asset('img/avatars/avatar.png') }}" alt="Avatar" style="width:90px">
+                            <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
+                            <p>Фильм говно</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div></div>
 
             <div></div>
             <div class = "footer">
-                TESTESTESTESTESTESTEST
             </div>
             <div></div>
         </div>
