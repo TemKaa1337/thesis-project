@@ -1,0 +1,25 @@
+body {
+	background-color: #E5E5E5;
+}
+
+.wrapper {
+    
+}
+
+#register_form {
+    text-align: center;
+    padding: 10px;
+    border: 1px black solid;
+    border-radius: 4px;
+}
+
+label {
+    font-size: 15px;
+	font-style: normal;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.row {
+    padding: 5px;
+    margin: auto
+}

@@ -57,9 +57,9 @@
                                     <td>СР</td>
                                 </tr>
                                 <tr>
-                                    <td><span class = "film_date">27</span></td>
-                                    <td><span class = "film_date">28</span></td>
-                                    <td><span class = "film_date">29</span></td>
+                                    <td data-date = "27.04.2020, среда" class = "enabled"><span class = "film_date" >27</span></td>
+                                    <td data-date = "28.04.2020, четверг" class = "disabled"><span class = "film_date">28</span></td>
+                                    <td data-date = "29.04.2020, пятница" class = "disabled"><span class = "film_date">29</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -69,15 +69,15 @@
                             <tbody>
                                 <tr>
                                     <td>Кинотеатр Беларусь:</td>
-                                    <td><a class = "session_time">17:10</a></td>
-                                    <td><a class = "session_time">19:10</a></td>
-                                    <td><a class = "session_time">21:10</a></td>
+                                    <td><a data-cinema = "Беларусь" class = "session_time">17:10</a></td>
+                                    <td><a data-cinema = "Беларусь" class = "session_time">19:10</a></td>
+                                    <td><a data-cinema = "Беларусь" class = "session_time">21:10</a></td>
                                 </tr>
                                 <tr>
                                     <td>Кинотеатр Лохотрон:</td>
-                                    <td><a class = "session_time">17:10</a></td>
-                                    <td><a class = "session_time">19:10</a></td>
-                                    <td><a class = "session_time">21:10</a></td>
+                                    <td><a data-cinema = "Лохотрон" class = "session_time">17:10</a></td>
+                                    <td><a data-cinema = "Лохотрон" class = "session_time">19:10</a></td>
+                                    <td><a data-cinema = "Лохотрон" class = "session_time">21:10</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -154,7 +154,7 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src = "{{ URL::asset('js/script.js') }}"></script>
         <script src = "{{ URL::asset('js/slider.js') }}"></script>
+        <script src = "{{ URL::asset('js/booking.js') }}"></script>
     </body>
 </html>

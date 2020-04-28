@@ -3,11 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Cinema ticket booking</title>
 
         <link href = "{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/slider.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/button.css') }}" rel="stylesheet" type="text/css" >
+        <link href = "{{ URL::asset('css/reset_button.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/dropdown.css') }}" rel="stylesheet" type="text/css" >
     </head>
     <body>
@@ -41,111 +43,48 @@
 
             <div></div>
             <div class = "filter">
-                <label for="filter" class = "film_filter">Выберите фильтр для фильмов:</label>
+                <label for = "filter" class = "film_filter">Выберите фильтр для фильмов:</label>
                 <span class = "dropdown">
-                    <select id="filter" class = "film_filter_select">
-                        <option value="genre">Жанр</option>
-                        <option value="date_shown">Дата показа</option>
-                        <option value="cinema">Кинотеатр</option>
+                    <select id = "filter" class = "film_filter_select">
+                        <option disabled selected value>Выберите параметр</option>
+                        <option value = "genre">Жанр</option>
+                        <option value = "date_shown">Дата показа</option>
+                        <option value = "cinema">Кинотеатр</option>
                     </select>
                 </span>
 
-                <label for="filter_value" class = "film_filter_value">Выберите значение:</label>
-                <span class = "dropdown">
-                    <select id="filter_value" class = "film_filter_select_value">
-                        <option value="genre">Жанр</option>
-                        <option value="date_shown">Дата показа</option>
-                        <option value="cinema">Кинотеатр</option>
+                <label for = "filter_value" class = "film_filter_value detailed">Выберите значение:</label>
+                <span class = "dropdown detailed">
+                    <select id = "filter_value" class = "film_filter_select_value">
                     </select>
                 </span>
+                <a id = "reset_button" class = "reset_button detailed">Сбросить фильтр</a>
             </div>
             <div></div>
 
             <div></div>
             <div class = "content">
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
+                @foreach ($filmData as $film)
+                    <div class = "event">
+                        <p class = "film_name">{{$film->name}}</p>
+                        <img class = "film_image_name" src = "{{ asset($film->preview_image) }}"></img>
+                        <div class = "short_film_description">
+                            <p class = "">Жанр: {{$film->genre}}</p>
+                            <a class = "button" href = "{{ url('/movie/'.$film->id) }}" >Смотреть описание</a>
+                        </div>
                     </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
-                <div class = "event">
-                    <p class = "film_name">Я все еще верю</p>
-                    <img class = "film_image_name" src = "{{ asset('img/film_previews/i_still_believe.jpg') }}"></img>
-                    <div class = "short_film_description">
-                        <p class = "">Жанр: триллер</p>
-                        <a class = "button" href = '#' >Смотреть описание</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div></div>
             <div></div>
             <div class = "footer">
-                TESTESTESTESTESTESTEST
+                
             </div>
             <div></div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src = "{{ URL::asset('js/script.js') }}"></script>
+        <script src = "{{ URL::asset('js/main.js') }}"></script>
         <script src = "{{ URL::asset('js/slider.js') }}"></script>
     </body>
 </html>

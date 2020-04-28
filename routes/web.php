@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main');
-});
+Route::get('/', 'PageController@renderMainPage');
+Route::get('/movie/{filmId}', 'PageController@renderFilmPage');
 
-Route::get('/film_description', function () {
-    return view('film_description');
-});
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin/dashboard', function () {
+    return 'NAISSSS';
+})->middleware(['auth', 'auth.admin']);
 
 Route::get('/book_ticket', function () {
     return view('book_ticket');
-});
+})->middleware(['auth', 'auth.registered']);

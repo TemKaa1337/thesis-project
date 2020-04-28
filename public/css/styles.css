@@ -132,3 +132,7 @@ nav li:hover {
 .film_filter_select_value {
 	
 }
+
+.detailed {
+	visibility: hidden;
+}

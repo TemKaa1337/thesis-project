@@ -1,0 +1,30 @@
+a.reset_button {
+    width: 20px;
+    height: 30px;
+    padding: 4px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    margin: 20px auto;
+    border-radius: 4px;
+    border: 1px white solid;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+  
+a.reset_button:not(.active) {
+    background-color: #5f5f5f;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
+  
+a.reset_button:not(.active):hover,
+a.reset_button:not(.active):focus {
+    cursor: pointer;
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
+
+a.reset_button:not(:hover) {
+    transition: 1s;
+}
