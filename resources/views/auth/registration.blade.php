@@ -10,45 +10,43 @@
     </head>
     <body>
         <div class = "wrapper">
-           <div id = 'register_form'>
-                <div class = "row">
-                    <label for = "username" class = "">Имя пользователя:</label>
-                    <div class = "input username">
-                        <input id = "username" type="text" class = "" name = "username" required autocomplete = "username">
+            <div id = 'register_form'>
+                <form method="POST" action="{{ route('register') }}">
+                    <div class = "row">
+                        <label for = "name" class = "">Имя:</label>
+                        <div class = "input name">
+                            <input id = "name" type="text" class="" name = "name" required autocomplete = "name">
+                        </div>
                     </div>
-               </div>
-               <div class = "row">
-                    <label for = "name" class = "">Имя:</label>
-                    <div class = "input name">
-                        <input id = "name" type="text" class="" name = "name" required autocomplete = "name">
+                    <div class = "row">
+                        <label for = "surname" class = "">Фамилия:</label>
+                        <div class = "input surname">
+                            <input id = "surname" type="text" class="" name = "surname" required autocomplete = "surname">
+                        </div>
                     </div>
-               </div>
-               <div class = "row">
-                    <label for = "surname" class = "">Фамилия:</label>
-                    <div class = "input surname">
-                        <input id = "surname" type="text" class="" name = "surname" required autocomplete = "surname">
+                    <div class = "row">
+                        <label for = "email" class = "">E-mail:</label>
+                        <div class = "input email">
+                            <input id = "email" type="text" class = "" name = "email" required>
+                        </div>
                     </div>
-               </div>
-               <div class = "row">
-                    <label for = "lastname" class = "">Отчество:</label>
-                    <div class = "input lastname">
-                        <input id = "lastname" type="text" class="" name = "lastname" autocomplete = "lastname">
+                    <div class = "row">
+                        <label for = "password" class = "">Пароль:</label>
+                        <div class = "input password">
+                            <input id = "password" type="password" class = "" name = "password" required>
+                        </div>
                     </div>
-               </div>
-               <div class = "row">
-                    <label for = "gender" class = "">Пол:</label>
-                    <div class = "input gender">
-                        <input id = "gender" type="radio" value = "Мужчина" class = "" name = "gender" required autocomplete = "gender">
-                        <input id = "gender" type="radio" value = "Женщина" class = "" name = "gender" required autocomplete = "gender">
+                    <div class = "row">
+                        <label for = "phone" class = "">Ваш номер телефона:</label>
+                        <div class = "input phone">
+                            <input id = "phone" type="phone" class = "" name = "phone" required>
+                        </div>
                     </div>
-               </div>
-               <div class = "row">
-                    <label for = "birth_date" class = "">Дата рождения:</label>
-                    <div class = "input birth_date">
-                        <input id = "birth_date" type="radio" class = "" name = "birth_date" required>
-                    </div>
-               </div>
-           </div>
+                    <button type="submit">
+                        {{ __('Register') }}
+                    </button>
+                </form>
+            </div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

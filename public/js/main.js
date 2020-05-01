@@ -13,9 +13,6 @@ function changeFilterOptions(event) {
         },
         success: function (data) {
             document.getElementById('filter_value').innerHTML = data['result'];
-        },
-        error: function (msg) {
-            alert(msg);
         }
     });
 }
@@ -30,10 +27,8 @@ function changeFilterValueOptions(event) {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
+
             document.getElementsByClassName('content')[0].innerHTML = data['result'];
-        },
-        error: function (msg) {
-            alert(msg);
         }
     });
 }
@@ -63,9 +58,6 @@ function resetFilters (event) {
         },
         success: function (data) {
             document.getElementsByClassName('content')[0].innerHTML = data['result'];
-        },
-        error: function (msg) {
-            alert(msg);
         }
     });
 }

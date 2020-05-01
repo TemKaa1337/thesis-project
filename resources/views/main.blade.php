@@ -34,8 +34,9 @@
                 <a href="#" class="control_next">></a>
                 <a href="#" class="control_prev"><</a>
                 <ul>
-                    <li><img src = "{{ asset('img/film_slider/nice_1.jpg') }}"></img></li>
-                    <li><img src = "{{ asset('img/film_slider/nice_2.jpg') }}"></img></li>
+                    @foreach ($sliders as $slider)
+                        <li><img src = "{{ asset($slider->slider_image) }}"></img></li>
+                    @endforeach
                 </ul>  
             </div>
 
@@ -64,7 +65,7 @@
 
             <div></div>
             <div class = "content">
-                @foreach ($filmData as $film)
+                @foreach ($films as $film)
                     <div class = "event">
                         <p class = "film_name">{{$film->name}}</p>
                         <img class = "film_image_name" src = "{{ asset($film->preview_image) }}"></img>

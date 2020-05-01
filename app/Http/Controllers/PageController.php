@@ -10,11 +10,14 @@ class PageController extends Controller
     public function renderMainPage()
     {
         $films = FilmController::getAllFilms();
-        return view('main', ['filmData' => $films]);
+        $slider = FilmController::getFilmsSlider();
+        return view('main', ['films' => $films, 'sliders' => $slider]);
     }
 
     public function renderFilmPage($filmId)
     {
-        return view('film_description');
+        $slider = FilmController::getFilmsSlider();
+        $filmDescription = FilmController::getDetailedFilmDescription($filmId);
+        return view('film_description', ['sliders' => $slider, 'filmDescription' => $filmDescription]);
     }
 }

@@ -9,8 +9,6 @@
         <link href = "{{ URL::asset('css/slider.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/film_page_styles.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/submit_comment.css') }}" rel="stylesheet" type="text/css" >
-        <!-- <link href = "{{ URL::asset('css/button.css') }}" rel="stylesheet" type="text/css" > -->
-        <!-- <link href = "{{ URL::asset('css/dropdown.css') }}" rel="stylesheet" type="text/css" > -->
     </head>
     <body>
         <div class = "wrapper">
@@ -34,8 +32,9 @@
                 <a href = "#" class = "control_next">></a>
                 <a href = "#" class = "control_prev"><</a>
                 <ul>
-                    <li><img src = "{{ asset('img/film_slider/nice_1.jpg') }}"></img></li>
-                    <li><img src = "{{ asset('img/film_slider/nice_2.jpg') }}"></img></li>
+                    @foreach ($sliders as $slider)
+                        <li><img src = "{{ asset($slider->slider_image) }}"></img></li>
+                    @endforeach
                 </ul>  
             </div>
             <div></div>
@@ -43,10 +42,10 @@
             <div></div>
             <div class = "film_page_content">
                 <div class = "film_page_preview">
-                    <img class = "film_image_name" src = "{{ asset('img/film_page/example.jpg') }}" style = "width: 270px;"></img>
+                    <img class = "film_image_name" src = "{{ asset($filmDescription->film_page_image) }}" style = "width: 270px;"></img>
                 </div>
                 <div class = "film_page_description">
-                    <h1>Я все еще верю</h1>
+                    <h1>{{$filmDescription->name}}</h1>
                     <hr></hr>
                     <div class = "">
                         <table>
@@ -89,39 +88,39 @@
                         <tbody>
                             <tr>
                                 <td>Дата показа:</td>
-                                <td>с 23 апреля по 29 апреля</td>
+                                <td>С {{$filmDescription->date_shown_from->format('d.m.Y')}} по {{$filmDescription->date_shown_to->format('d.m.Y')}}</td>
                             </tr>
                             <tr>
                                 <td>Страна:</td>
-                                <td>Россия, 2020</td>
+                                <td>{{$filmDescription->country}}, {{$filmDescription->year}}</td>
                             </tr>
                             <tr>
                                 <td>Длительность:</td>
-                                <td>115 мин</td>
+                                <td>{{$filmDescription->duration}}</td>
                             </tr>
                             <tr>
                                 <td>Жанр:</td>
-                                <td>Мелодрама, Комедия</td>
+                                <td>{{$filmDescription->genre}}</td>
                             </tr>
                             <tr>
                                 <td>Режиссер:</td>
-                                <td>Константин Статский</td>
+                                <td>{{$filmDescription->producer}}</td>
                             </tr>
                             <tr>
                                 <td>Актерский состав:</td>
-                                <td>Милош Бикович, Диана Пожарская, Борис Дергачев, Александра Кузенкина, Любомир Бандович, Барбара Таталович, Миодраг Радонич, Елизавета Орашанин</td>
+                                <td>{{$filmDescription->actors}}</td>
                             </tr>
                             <tr>
                                 <td>Возрастное ограничение:</td>
-                                <td>16+</td>
+                                <td>{{$filmDescription->age_restriction}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class = "film_page_other">
                     <h3>Описание фильма</h3>
-                    <p id = "p_description">Паша, сербский сердцеед и весельчак, — хозяин пятизвездочного отеля в Белграде. Он живет, не зная бед, пока однажды совершенно случайно не портит новое — многомиллионное! — приобретение коллекционера-мафиози. В уплату долга криминальный босс заставляет Пашу жениться на своей дочке. Девушка начинает рьяно готовиться к свадьбе с красавчиком отельером, когда Паша после четырехлетней разлуки неожиданно сталкивается с Дашей, своей русской любовью. В романтичной атмосфере древнего города чувства между ними готовы вспыхнуть вновь…если бы не будущий тесть, настоящий муж, слепой дед и друг-банкрот!..</p>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/1ZV0WoipyC4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <p id = "p_description">{{$filmDescription->description}}</p>
+                    <iframe width="560" height="315" src="{{$filmDescription->trailer}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div class = "leave_comment">
                         <form action="#" method="post">
                             <textarea placeholder = "Оставьте отзыв."></textarea>

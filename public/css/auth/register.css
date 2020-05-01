@@ -1,20 +1,28 @@
+* {box-sizing: border-box;}
+
 body {
 	background-color: #E5E5E5;
 }
 
 .wrapper {
-    
+    max-width: 450px;
+    margin: 200px auto 200px auto;
+    background: white;
 }
 
 #register_form {
+	background-color: #E5E5E5;
     text-align: center;
-    padding: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     border: 1px black solid;
     border-radius: 4px;
 }
 
 label {
-    font-size: 15px;
+    display: block;
+    margin-bottom: 2px;
+    font-size: 16px;
 	font-style: normal;
 	font-family: Arial, Helvetica, sans-serif;
 }

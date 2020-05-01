@@ -17,13 +17,18 @@ class CreateFilmsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('preview_image');
+            $table->string('film_page_image');
+            $table->string('description', 1500);
             $table->string('genre');
-            $table->string('date_shown');
+            $table->date('date_shown_from');
+            $table->date('date_shown_to');
             $table->string('country');
-            $table->string('length');
+            $table->string('year');
+            $table->string('duration');
             $table->string('producer');
             $table->string('actors');
-            $table->string('age_restrictions');
+            $table->string('age_restriction');
+            $table->string('trailer');
             $table->integer('is_shown');
         });
     }
