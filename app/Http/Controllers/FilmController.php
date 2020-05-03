@@ -9,14 +9,36 @@ use App\SessionTime;
 
 class FilmController extends Controller
 {
-    public static function getAllFilms()
+    public function getAllFilms()
     {
         return Films::select('id', 'name', 'preview_image', 'genre')->where('is_shown', 1)->get();
     }
 
-    public static function getFilmsSlider()
+    public function getFilmsSlider()
     {
         return Slider::all();
+    }
+
+    private function getSessionDayName($sessionDay)
+    {
+        $sessionDay = date('N', strtotime($sessionDay));
+
+        switch ($sessionDay) {
+            case 1:
+                return 'ПН';
+            case 2:
+                return 'ВТ';
+            case 3:
+                return 'СР';
+            case 4:
+                return 'ЧТ';
+            case 5:
+                return 'ПТ';
+            case 6:
+                return 'СБ';
+            case 7:
+                return 'ВС';
+        }
     }
 
     public function getFilterOptions(Request $request)
@@ -133,9 +155,106 @@ class FilmController extends Controller
         return $html;
     }
 
-    public static function getDetailedFilmDescription($filmId)
+    public function getDetailedFilmDescription($filmId)
     {
         $filmDescription = Films::where('id', $filmId)->get();
         return $filmDescription[0];
+    }
+
+    public function getSessionDayNames($filmId, $filmSessionDays)
+    {
+        $filmDayNames = [];
+
+        foreach ($filmSessionDays as $day) {
+            array_push($filmDayNames, $this->getSessionDayName($day->date_shown));
+        }
+
+        return $filmDayNames;
+    }
+
+    public function getSessionDayValues($filmId, $filmSessionDays)
+    {
+        $filmDayValues = [];
+        
+        foreach ($filmSessionDays as $day) {
+            array_push($filmDayValues, $day->date_shown);
+        }
+
+        return $filmDayValues;
+    }
+
+    public function getSessionTimes($filmId, $filmSessionDays)
+    {
+        $result = [];
+        $sessions = SessionTime::select('cinema_name', 'datetime_shown')->where([
+            ['film_id', '=', $filmId],
+            ['date_shown', '=', $filmSessionDays[0]->date_shown]
+        ])->get();
+
+        foreach ($sessions as $session) {
+            if (array_key_exists($session->cinema_name, $result)) {
+                array_push($result[$session->cinema_name], $session->datetime_shown);
+            } else {
+                $result[$session->cinema_name] = [$session->datetime_shown];
+            }
+        }
+
+        return $result;
+    }
+
+    public function getSessionPlaces($filmId, $sessionTime)
+    {
+        return SessionTime::select('hall_places')->where([
+            ['film_id', $filmId],
+            ['datetime_shown', $sessionTime]
+        ])->get()[0]->hall_places;
+    }
+
+    public function getNewSessionTimes(Request $request)
+    {
+        $result = [];
+        $token = $request->post('_token');
+        $sessionDate = $request->post('sessionDate');
+        $filmId = $request->post('filmId');
+        
+        $newSessionData = SessionTime::select('cinema_name', 'datetime_shown')->where([
+            ['date_shown', $sessionDate],
+            ['film_id', $filmId]
+        ])->get();
+
+        foreach ($newSessionData as $session) {
+            if (array_key_exists($session->cinema_name, $result)) {
+                array_push($result[$session->cinema_name], $session->datetime_shown);
+            } else {
+                $result[$session->cinema_name] = [$session->datetime_shown];
+            }
+        }
+        
+        return $this->formatSessionTimesToHtml($filmId, $sessionDate, $result, $token);
+    }
+
+    public function formatSessionTimesToHtml($filmId, $sessionDate, $newSessionData, $token)
+    {
+        $html = '<tbody>';
+
+        foreach ($newSessionData as $cinema => $sessions) {
+            $html .= "<tr><td>Кинотеатр $cinema:</td>";
+            
+            foreach ($sessions as $session) {
+                $html .= "
+                <td>
+                    <form action = ".url('book/film')." method = 'POST'>
+                        <input type = 'hidden' name = '_token' value = ".$token.">
+                        <input type = 'hidden' name = 'filmId' value = ".$filmId.">
+                        <input type = 'hidden' name = 'sessionTime' value = '".$session->format('Y-m-d H:i:s')."'>
+                        <button type = 'submit' data-cinema = ".$cinema." class = 'session_time'>".$session->format('H:i')."</button>
+                    </form>
+                </td>";
+            }
+            $html .= '</tr>';
+        }
+        $html .= '</tbody>';
+
+        return response()->json(array('result' => $html), 200);
     }
 }

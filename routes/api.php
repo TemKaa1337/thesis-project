@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/get/filter/options', 'FilmController@getFilterOptions');
 Route::post('/get/filter/movies', 'FilmController@getFilterMovies');
+Route::post('/get/session/times', 'FilmController@getNewSessionTimes');
 Route::post('/reset/filters', 'FilmController@resetFilmFilters');
+// Route::post('/book/places', 'BookController@bookChosenPlaces')->middleware(['auth.registered']);
+Route::post('/book/places', [
+    'uses' => 'BookController@bookChosenPlaces',
+    'middleware' => 'auth:api'
+]);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });

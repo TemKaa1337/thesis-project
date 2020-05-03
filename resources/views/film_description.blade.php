@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Cinema ticket booking</title>
 
         <link href = "{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
@@ -16,12 +17,17 @@
             <div class = "header">
                 <nav>
                     <ul>
-                        <li><a href = "mainpage">Main page</a></li>
+                    <li><a href = "{{ url('/') }}">Главная</a></li>
                         <li><a href = "mainpage">Cinema ticket booking</a></li>
                         <li><a href = "mainpage">Contacts</a></li>
-                        <li><a href = "mainpage">About us</a></li>
-                        <li><a href = "mainpage">Sign up</a></li>
-                        <li><a href = "mainpage">Sign in</a></li>
+                        <li><a href = "mainpage">О нас</a></li>
+                        @if (Auth::guest())
+                            <li><a href = "{{ route('register') }}">Регистрация</a></li>
+                            <li><a href = "{{ route('login') }}">Вход</a></li>
+                        @else
+                            <li><a href = "{{ url('/cabinet') }}">Личный кабинет</a></li>
+                            <li><a href = "{{ route('logout') }}">Выход</a></li>
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -51,33 +57,52 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>ПН</td>
-                                    <td>ВТ</td>
-                                    <td>СР</td>
+                                    @foreach ($sessionDayNames as $dayName)
+                                        <td>{{ $dayName }}</td>
+                                    @endforeach
                                 </tr>
                                 <tr>
-                                    <td data-date = "27.04.2020, среда" class = "enabled"><span class = "film_date" >27</span></td>
-                                    <td data-date = "28.04.2020, четверг" class = "disabled"><span class = "film_date">28</span></td>
-                                    <td data-date = "29.04.2020, пятница" class = "disabled"><span class = "film_date">29</span></td>
+                                    @foreach ($sessionDayValues as $dayValue)
+                                        @if ($loop->first)
+                                            <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "enabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
+                                        @else
+                                            <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "disabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
+                                        @endif
+                                    @endforeach
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div style = "height: 50px;">
-                        <table>
+                        <table id = "sessions_table">
                             <tbody>
-                                <tr>
-                                    <td>Кинотеатр Беларусь:</td>
-                                    <td><a data-cinema = "Беларусь" class = "session_time">17:10</a></td>
-                                    <td><a data-cinema = "Беларусь" class = "session_time">19:10</a></td>
-                                    <td><a data-cinema = "Беларусь" class = "session_time">21:10</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Кинотеатр Лохотрон:</td>
-                                    <td><a data-cinema = "Лохотрон" class = "session_time">17:10</a></td>
-                                    <td><a data-cinema = "Лохотрон" class = "session_time">19:10</a></td>
-                                    <td><a data-cinema = "Лохотрон" class = "session_time">21:10</a></td>
-                                </tr>
+                                <!-- @foreach ($sessionTimes as $cinema => $sessions)
+                                    <tr>
+                                        <td>Кинотеатр {{ $cinema }}:</td>
+                                        @foreach ($sessions as $session)
+                                            <td><a data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</a></td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach -->
+                                
+                                @foreach ($sessionTimes as $cinema => $sessions)
+                                    <tr>
+                                        <td>Кинотеатр {{ $cinema }}:</td>
+                                        @foreach ($sessions as $session)
+                                            <td>
+                                                <form action = "{{ url('book/film') }}" method = "POST">
+                                                    <!-- <input type = 'hidden' name = '_token' value = "{{ csrf_token() }}"> -->
+                                                    @csrf
+                                                    <!-- <a data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</a> -->
+                                                    <input type = "hidden" name = "filmId" value = "{{ $filmId }}">
+                                                    <input type = "hidden" name = "sessionTime" value = "{{ $session->format('Y-m-d H:i:s') }}">
+                                                    <input type = "hidden" name = "cinema" value = "{{ $cinema }}">
+                                                    <button type = "submit" data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</button>
+                                                </form>
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -124,7 +149,7 @@
                     <div class = "leave_comment">
                         <form action="#" method="post">
                             <textarea placeholder = "Оставьте отзыв."></textarea>
-                            <button type="submit">Отправить</button>
+                            <button class = "submit_comment" type="submit">Отправить</button>
                         </form>
                     </div>
                     <div class = "comment_wrapper">

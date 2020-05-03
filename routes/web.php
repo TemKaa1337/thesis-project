@@ -15,14 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PageController@renderMainPage');
 Route::get('/movie/{filmId}', 'PageController@renderFilmPage');
+Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('logout', 'Auth\LoginController@logout');
 Route::get('/admin/dashboard', function () {
     return 'NAISSSS';
 })->middleware(['auth', 'auth.admin']);
 
-Route::get('/book_ticket', function () {
-    return view('book_ticket');
-})->middleware(['auth', 'auth.registered']);
+Route::post('/book/film', 'PageController@renderBookingPage')->middleware(['auth']);
+Route::get('/cabinet', 'PageController@renderClientCabinetPage')->middleware(['auth']);

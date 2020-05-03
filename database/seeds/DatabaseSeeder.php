@@ -7,6 +7,7 @@ use App\Films;
 use App\Slider;
 use App\SessionTime;
 use App\Cinema;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -147,19 +148,22 @@ class DatabaseSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('admin')
+            'password' => bcrypt('admin'),
+            'api_token' => Str::random(60)
         ]);
 
         $manager = User::create([
             'name' => 'Manager',
             'email' => 'manager@manager.com',
-            'password' => bcrypt('manager')
+            'password' => bcrypt('manager'),
+            'api_token' => Str::random(60)
         ]);
 
         $user = User::create([
             'name' => 'User',
             'email' => 'user@user.com',
-            'password' => bcrypt('user')
+            'password' => bcrypt('user'),
+            'api_token' => Str::random(60)
         ]);
 
         $admin->roles()->attach($adminRole);

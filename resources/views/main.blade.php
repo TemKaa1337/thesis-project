@@ -18,12 +18,17 @@
             <div class = "header">
                 <nav>
                     <ul>
-                        <li><a href = "mainpage">Main page</a></li>
+                        <li><a href = "{{ url('/') }}">Главная</a></li>
                         <li><a href = "mainpage">Cinema ticket booking</a></li>
                         <li><a href = "mainpage">Contacts</a></li>
-                        <li><a href = "mainpage">About us</a></li>
-                        <li><a href = "mainpage">Sign up</a></li>
-                        <li><a href = "mainpage">Sign in</a></li>
+                        <li><a href = "mainpage">О нас</a></li>
+                        @if (Auth::guest())
+                            <li><a href = "{{ route('register') }}">Регистрация</a></li>
+                            <li><a href = "{{ route('login') }}">Вход</a></li>
+                        @else
+                            <li><a href = "{{ url('/cabinet') }}">Личный кабинет</a></li>
+                            <li><a href = "{{ route('logout') }}">Выход</a></li>
+                        @endif
                     </ul>
                 </nav>
             </div>
