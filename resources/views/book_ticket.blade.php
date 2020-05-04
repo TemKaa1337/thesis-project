@@ -45,8 +45,6 @@
                     @foreach ($sliders as $slider)
                         <li><img src = "{{ asset($slider->slider_image) }}"></img></li>
                     @endforeach
-                    <!-- <li><img src = "{{ asset('img/film_slider/nice_1.jpg') }}"></img></li>
-                    <li><img src = "{{ asset('img/film_slider/nice_2.jpg') }}"></img></li> -->
                 </ul>  
             </div>
             <div></div>

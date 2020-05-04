@@ -50,9 +50,7 @@ function bookPlace(event) {
             'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
         },
         success: function (data) {
-            if (data['result'] == 1) {
-                alert('Места успешно забронированы! \n Бронь вы можете увидеть в вашем личном кабинете');
-            }
+            alert(data['result']);
         }
     });
 }

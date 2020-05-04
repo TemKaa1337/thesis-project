@@ -257,4 +257,9 @@ class FilmController extends Controller
 
         return response()->json(array('result' => $html), 200);
     }
+
+    public function getFilmNameById($filmId)
+    {
+        return Films::select('name')->where('id', $filmId)->get()[0]->name;
+    }
 }
