@@ -2,9 +2,7 @@ document.querySelectorAll('.film_date').forEach((item) => {
     item.onclick = showCinemaSessionTime;
 });
 
-// document.querySelectorAll('.session_time').forEach((item) => {
-//     item.onclick = bookTicket;
-// });
+document.getElementById('comment_submit').onsubmit = leaveCOmment;
 
 function showCinemaSessionTime(event) {
     let aTags = this.parentElement.parentElement.getElementsByTagName('td');
@@ -31,8 +29,22 @@ function showCinemaSessionTime(event) {
     });
 }
 
-// function bookTicket(event) {
-//     let selectedDate = document.getElementsByClassName('enabled')[0].getAttribute('data-date');
-//     let cinema = this.getAttribute('data-cinema');
-//     let sessiontime = this.textContent;
-// }
+function leaveCOmment(event) {
+    event.preventDefault();
+    let commentElement = document.getElementsByTagName('textarea')[0];
+
+    if (commentElement.value !== '') {
+        $.ajax({
+            url: '/api/leave/comment',
+            type: "POST",
+            data: { comment: commentElement.value, filmId: commentElement.getAttribute('data-film') },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+            },
+            success: function (data) {
+                let comments = document.getElementById('comment_wrapper');
+            }
+        });
+    }
+}

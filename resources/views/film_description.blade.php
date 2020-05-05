@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="api_token" content="{{ (Auth::user()) ? Auth::user()->api_token : '' }}">
         <title>Cinema ticket booking</title>
 
         <link href = "{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
@@ -146,23 +147,25 @@
                     <h3>Описание фильма</h3>
                     <p id = "p_description">{{$filmDescription->description}}</p>
                     <iframe width="560" height="315" src="{{$filmDescription->trailer}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class = "leave_comment">
-                        <form action="#" method="post">
-                            <textarea placeholder = "Оставьте отзыв."></textarea>
-                            <button class = "submit_comment" type="submit">Отправить</button>
-                        </form>
-                    </div>
+                    @if (Auth::user())
+                        <div class = "leave_comment">
+                            <form id = "comment_submit" action="#" method="post" onsubmit = "e.preventDefault()">
+                                <textarea placeholder = "Оставьте отзыв." data-film = "{{ $filmId }}"></textarea>
+                                <button class = "submit_comment" type="submit">Отправить</button>
+                            </form>
+                        </div>
+                    @endif
                     <div class = "comment_wrapper">
                         <hr></hr>
                         <div class="comment_container">
-                            <img src = "{{ asset('img/avatars/avatar.png') }}" alt="Avatar" style="width:90px">
+                            <img src = "{{ asset('img/avatars/default_user_avatar.png') }}" alt="Avatar" style="width:90px">
                             <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
                             <p>Фильм говно</p>
                         </div>
 
                         <hr></hr>
                         <div class="comment_container">
-                            <img src = "{{ asset('img/avatars/avatar.png') }}" alt="Avatar" style="width:90px">
+                            <img src = "{{ asset('img/avatars/default_user_avatar.png') }}" alt="Avatar" style="width:90px">
                             <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
                             <p>Фильм говно</p>
                         </div>

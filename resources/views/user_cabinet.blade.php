@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="api_token" content="{{ (Auth::user()) ? Auth::user()->api_token : '' }}">
         <title>Cinema ticket booking</title>
 
         <link href = "{{ URL::asset('css/user_cabinet.css') }}" rel="stylesheet" type="text/css" >
@@ -42,7 +43,43 @@
                     </ul>
                 </nav>
                 <div class = "navigation_content">
-                    <div class = "ticket_item">
+                    @foreach ($bookedPlaces as $sessions)
+                        <div class = "ticket_item">
+                            @foreach ($sessions as $filmName => $filmInfo)
+                                <div>
+                                    <p>{{ $filmName }}</p>
+                                </div>
+                                <div>
+                                    <p>{{ $filmInfo['datetime_shown'] }}</p>
+                                </div>
+                                <div>
+                                    <p>Мест: {{ $filmInfo['placesCount'] }}</p>
+                                </div>
+                                <div>
+                                    @if ($filmInfo['status'])
+                                        <p class = 'film_active'>Активен</p>
+                                    @else
+                                        <p class = 'film_disabled'>Не активен</p>
+                                    @endif
+                                </div>
+                                @foreach ($filmInfo['places'] as $places)
+                                    <div>
+                                        <p>Кинотеатр: {{ $filmInfo['cinema'] }}</p>
+                                    </div>
+                                    <div>
+                                        <p>Ряд: {{ $places['row'] }}</p>
+                                    </div>
+                                    <div>
+                                        <p>Место: {{ $places['place'] }}</p>
+                                    </div>
+                                    <div style = "text-align: center;">
+                                        <a id = "book_button" class = "book_button" data-date = "{{ $filmInfo['datetime_shown'] }}" data-place = "{{ $places['place'] }}" data-row = "{{ $places['row'] }}" data-cinema = "{{ $filmInfo['filmId'] }}">Снять бронь</a>
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        </div>
+                    @endforeach
+                    <!-- <div class = "ticket_item">
                         <div>
                             <p>Интерстеллар</p>
                         </div>
@@ -65,77 +102,7 @@
                             <p>Место: 10</p>
                         </div>
                         <div style = "text-align: center;"><a id = "book_button" class = "book_button">Снять бронь</a></div>
-                    </div>
-                    <div class = "ticket_item">
-                        <div>
-                            <p>Трансформеры</p>
-                        </div>
-                        <div>
-                            <p>21.05.2020 19:45</p>
-                        </div>
-                        <div>
-                            <p>Мест: 1</p>
-                        </div>
-                        <div>
-                            <p class = 'film_disabled'>Не активен</p>
-                        </div>
-                    </div>
-                    <div class = "ticket_item">
-                        <div>
-                            <p>Трансформеры</p>
-                        </div>
-                        <div>
-                            <p>21.05.2020 19:45</p>
-                        </div>
-                        <div>
-                            <p>Мест: 1</p>
-                        </div>
-                        <div>
-                            <p class = 'film_disabled'>Не активен</p>
-                        </div>
-                    </div>
-                    <div class = "ticket_item">
-                        <div>
-                            <p>Трансформеры</p>
-                        </div>
-                        <div>
-                            <p>21.05.2020 19:45</p>
-                        </div>
-                        <div>
-                            <p>Мест: 1</p>
-                        </div>
-                        <div>
-                            <p class = 'film_disabled'>Не активен</p>
-                        </div>
-                    </div>
-                    <div class = "ticket_item">
-                        <div>
-                            <p>Трансформеры</p>
-                        </div>
-                        <div>
-                            <p>21.05.2020 19:45</p>
-                        </div>
-                        <div>
-                            <p>Мест: 1</p>
-                        </div>
-                        <div>
-                            <p class = 'film_disabled'>Не активен</p>
-                        </div>
-                    </div>
-                    <div class = "ticket_item">
-                        <div>
-                            <p>Трансформеры</p>
-                        </div>
-                        <div>
-                            <p>21.05.2020 19:45</p>
-                        </div>
-                        <div>
-                            <p>Мест: 1</p>
-                        </div>
-                        <div>
-                            <p class = 'film_disabled'>Не активен</p>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div></div>

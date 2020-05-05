@@ -109,7 +109,6 @@ class BookController extends Controller
                     }
                 }
             }
-            dd($places, $userBookedPlaces);
 
             UserBookedPlaces::where([
                 'film_id' => $request->post('filmId'),
@@ -117,6 +116,8 @@ class BookController extends Controller
                 'datetime_shown' => $request->post('datetime'),
                 'cinema' => $request->post('cinema')
             ])->update(['booked_places' => json_encode($userBookedPlaces)]);
+
+            $this->updateBookedPlaces($userBookedPlaces, $request);
         }
 
         return 'Места успешно забронированы! \n Забронированные места вы можете посмотреть в личном кабинете.';
@@ -133,7 +134,7 @@ class BookController extends Controller
         if (!is_array($allPlaces)) {
             $allPlaces = json_decode($allPlaces, true);
         }
-
+        
         foreach ($bookedPlaces as $row => $places) {
             foreach ($places as $place) {
                 $allPlaces[$row][$place] = 1;

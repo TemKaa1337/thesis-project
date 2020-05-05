@@ -63,7 +63,7 @@ class PageController extends Controller
     {
         $user = new UserController();
         $bookedPlaces = $user->getAllBookedPlaces();
-        dd($bookedPlaces);
+        
         return view('user_cabinet', [
             'bookedPlaces' => $bookedPlaces
         ]);
