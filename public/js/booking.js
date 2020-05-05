@@ -43,7 +43,9 @@ function leaveCOmment(event) {
                 'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
             },
             success: function (data) {
-                let comments = document.getElementById('comment_wrapper');
+                let comments = document.getElementsByClassName('comment_wrapper')[0];
+                // console.log(comments);
+                comments.insertAdjacentHTML('afterbegin', data['result']);
             }
         });
     }

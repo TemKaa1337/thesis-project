@@ -52,26 +52,26 @@ class UserController extends Controller
     {
         $comment = $request->post('comment');
         
-        Comments::insert([
+        $newComment = Comments::create([
             'film_id' => $request->post('filmId'),
             'author' => Auth::user()->name.' '.Auth::user()->surname,
             'comment' => $request->post('comment'),
             'insert_datetime' => date('Y-m-d H:i')
         ]);
-
-        $newCommentHtml = $this->getCommentHtml();
+        
+        $newCommentHtml = $this->getCommentHtml($newComment);
 
         return response()->json(array('result' => $newCommentHtml), 200);
     }
 
-    public function getCommentHtml()
+    public function getCommentHtml($newComment)
     {
         return "
             <hr></hr>
             <div class='comment_container'>
                 <img src = ".asset('img/avatars/default_user_avatar.png')." alt='Avatar' style='width:90px'>
-                <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
-                <p>Фильм говно</p>
+                <p><span >".Auth::user()->name.' '.Auth::user()->surname."</span>".$newComment->insert_datetime->format('d.m.Y')." в ".$newComment->insert_datetime->format('H:i')."</p>
+                <p>".$newComment->comment."</p>
             </div>";
     }
 }
