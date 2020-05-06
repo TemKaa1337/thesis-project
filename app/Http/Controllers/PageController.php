@@ -20,13 +20,14 @@ class PageController extends Controller
 
     public function renderFilmPage($filmId)
     {
-        $filmDates = SessionTime::getSessionDates($filmId);
         $films = new FilmController();
+        $filmDates = SessionTime::getSessionDates($filmId);
         $slider = $films->getFilmsSlider();
         $filmDescription = $films->getDetailedFilmDescription($filmId);
         $sessionDayNames = $films->getSessionDayNames($filmId, $filmDates);
         $sessionDayValues = $films->getSessionDayValues($filmId, $filmDates);
         $sessionTimes = $films->getSessionTimes($filmId, $filmDates);
+        $comments = $films->getCommentsToFilm($filmId);
         
         return view('film_description', [
             'sliders' => $slider,
@@ -34,7 +35,8 @@ class PageController extends Controller
             'sessionDayNames' => $sessionDayNames,
             'sessionDayValues' => $sessionDayValues,
             'sessionTimes' => $sessionTimes,
-            'filmId' => $filmId
+            'filmId' => $filmId,
+            'comments' => $comments
         ]);
     }
 

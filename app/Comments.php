@@ -9,7 +9,7 @@ class Comments extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'film_id', 'author', 'comment', 'insert_datetime'
+        'film_id', 'author', 'comment', 'insert_datetime', 'user_id', 'avatar'
     ];
 
     protected $dates = [

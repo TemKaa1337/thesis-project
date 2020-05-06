@@ -19,6 +19,8 @@ class CreateCommentsTable extends Migration
             $table->string('author')->nullable();
             $table->string('comment');
             $table->dateTime('insert_datetime');
+            $table->integer('user_id');
+            $table->string('avatar')->default('img/avatars/default_user_avatar.png');
         });
     }
 

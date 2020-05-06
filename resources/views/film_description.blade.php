@@ -156,19 +156,14 @@
                         </div>
                     @endif
                     <div class = "comment_wrapper">
+                    @foreach ($comments as $comment)
                         <hr></hr>
                         <div class="comment_container">
-                            <img src = "{{ asset('img/avatars/default_user_avatar.png') }}" alt="Avatar" style="width:90px">
-                            <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
-                            <p>Фильм говно</p>
+                            <img src = "{{ asset($comment->avatar) }}" alt="Avatar" style="width:90px">
+                            <p><span>{{ $comment->author }}</span>{{ $comment->insert_datetime->format('d.m.Y') }} в {{ $comment->insert_datetime->format('H:i') }}</p>
+                            <p>{{ $comment->comment }}</p>
                         </div>
-
-                        <hr></hr>
-                        <div class="comment_container">
-                            <img src = "{{ asset('img/avatars/default_user_avatar.png') }}" alt="Avatar" style="width:90px">
-                            <p><span >Артем Сергеевич</span>28.09.2020 в 9:12</p>
-                            <p>Фильм говно</p>
-                        </div>
+                    @endforeach
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Films;
 use App\Slider;
 use App\SessionTime;
+use App\Comments;
 
 class FilmController extends Controller
 {
@@ -261,5 +262,10 @@ class FilmController extends Controller
     public function getFilmNameById($filmId)
     {
         return Films::select('name')->where('id', $filmId)->get()[0]->name;
+    }
+
+    public function getCommentsToFilm($filmId)
+    {
+        return Comments::where('film_id', $filmId)->get();
     }
 }

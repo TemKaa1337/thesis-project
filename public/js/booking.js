@@ -44,7 +44,6 @@ function leaveCOmment(event) {
             },
             success: function (data) {
                 let comments = document.getElementsByClassName('comment_wrapper')[0];
-                // console.log(comments);
                 comments.insertAdjacentHTML('afterbegin', data['result']);
             }
         });

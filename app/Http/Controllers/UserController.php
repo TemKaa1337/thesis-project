@@ -50,13 +50,13 @@ class UserController extends Controller
 
     public function submitUserComment(Request $request)
     {
-        $comment = $request->post('comment');
-        
         $newComment = Comments::create([
             'film_id' => $request->post('filmId'),
             'author' => Auth::user()->name.' '.Auth::user()->surname,
             'comment' => $request->post('comment'),
-            'insert_datetime' => date('Y-m-d H:i')
+            'insert_datetime' => date('Y-m-d H:i'),
+            'user_id' => Auth::user()->id,
+            'avatar' => Auth::user()->user_image
         ]);
         
         $newCommentHtml = $this->getCommentHtml($newComment);
