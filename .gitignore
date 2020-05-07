@@ -10,3 +10,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+/app/Bot/.idea
+/app/Bot/__pycache__
+/app/Bot/bot_options.txt
+/app/Bot/key.py
