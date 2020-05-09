@@ -21,9 +21,7 @@ Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 Auth::routes();
 
 Route::get('logout', 'Auth\LoginController@logout');
-Route::get('/admin/dashboard', function () {
-    return 'NAISSSS';
-})->middleware(['auth', 'auth.admin']);
+Route::get('/admin/dashboard', 'PageController@renderAdminPage')->middleware(['auth', 'auth.admin']);
 
 Route::post('/book/film', 'PageController@renderBookingPage')->middleware(['auth']);
 Route::get('/cabinet', 'PageController@renderClientCabinetPage')->middleware(['auth']);

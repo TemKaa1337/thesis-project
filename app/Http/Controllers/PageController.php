@@ -70,4 +70,11 @@ class PageController extends Controller
             'bookedPlaces' => $bookedPlaces
         ]);
     }
+
+    public function renderAdminPage()
+    {
+        return view('admin_dashboard', [
+
+        ]);
+    }
 }

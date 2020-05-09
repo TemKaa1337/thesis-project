@@ -24,6 +24,7 @@ Route::post('/book/places', [
 ]);
 
 Route::post('/leave/comment', 'UserController@submitUserComment')->middleware('auth:api');
+Route::post('/save/new_film', 'AdminController@saveNewFilm')->middleware('auth:api');
 
 Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();

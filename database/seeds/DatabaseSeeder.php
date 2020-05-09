@@ -334,190 +334,190 @@ class DatabaseSeeder extends Seeder
         SessionTime::insert([
             [
                 'film_id' => 1,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-06')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-06 20:00')),
+                'date_shown' => date('Y-m-d'),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 1,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-06')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-06 21:00')),
+                'date_shown' => date('Y-m-d'),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 1,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-07')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-07 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+1 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 2,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-07')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-07 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+1 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +1 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 2,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-07')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-07 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+1 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +1 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 2,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-07')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-07 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+1 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +1 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 3,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-07')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-07 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+1 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +1 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 3,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +2 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 3,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 4,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 4,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 4,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +2 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 5,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +2 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 5,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +2 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 5,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-08')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-08 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+2 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 6,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 6,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 6,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +3 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 7,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +3 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 7,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 7,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 8,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 8,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +3 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 8,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-09')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-09 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+3 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +3 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
                 'film_id' => 9,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-10')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-10 20:00')),
+                'date_shown' => date('Y-m-d', strtotime('+4 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +4 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 9,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-10')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-10 21:00')),
+                'date_shown' => date('Y-m-d', strtotime('+4 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +4 days')),
                 'cinema_name' => 'Лохотрон',
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
                 'film_id' => 9,
-                'date_shown' => date('Y-m-d', strtotime('2020-05-10')),
-                'datetime_shown' => date('Y-m-d H:i', strtotime('2020-05-10 22:00')),
+                'date_shown' => date('Y-m-d', strtotime('+4 days')),
+                'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +4 days')),
                 'cinema_name' => 'Беларусь',
                 'hall_places' => json_encode($belarusCinema)
             ]
