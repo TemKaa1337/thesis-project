@@ -8,6 +8,8 @@
         <title>Cinema ticket booking</title>
 
         <link href = "{{ URL::asset('css/admin_dashboard.css') }}" rel="stylesheet" type="text/css" >
+        <link href = "{{ URL::asset('css/dropdown.css') }}" rel="stylesheet" type="text/css" >
+        <link href = "{{ URL::asset('css/reset_button.css') }}" rel="stylesheet" type="text/css" >
     </head>
     <body>
         <div class = "wrapper">
@@ -23,11 +25,11 @@
                             <li><a href = "{{ route('register') }}">Регистрация</a></li>
                             <li><a href = "{{ route('login') }}">Вход</a></li>
                         @else
+                            @if (Auth::user()->hasAnyRole('admin'))
+                                <li><a href = "{{ url('/admin/dashboard') }}">Панель администратора</a></li>
+                            @endif
                             <li><a href = "{{ url('/cabinet') }}">Личный кабинет</a></li>
                             <li><a href = "{{ route('logout') }}">Выход</a></li>
-                        @endif
-                        @if (Auth::user()->hasAnyRole('admin'))
-                            <li><a href = "{{ url('/admin/dashboard') }}">Панель администратора</a></li>
                         @endif
                     </ul>
                 </nav>
@@ -38,12 +40,13 @@
             <div class = "user_content">
                 <nav class = "navigation">
                     <ul id = "navigation">
-                        <li class = "selected">Добавить новый фильм</li>
-                        <li>Добавить фильм</li>
+                        <li class = "selected" id = "add_film">Добавить новый фильм</li>
+                        <li id = "add_session">Добавить сеансы</li>
+                        <li id = "remove_session">Удалить сеансы</li>
                     </ul>
                 </nav>
-                <div class = "navigation_content">
-                    <div class = "content_item">
+                <div id = "navigation_content" class = "navigation_content">
+                    <div class = "content_item add_film">
                         <div class = "upload_film_image_preview" >
                             <p>Выберите изображение для превью фильма</p>
                             <input type = "file" id = "upload_film_image_preview_input">
@@ -52,7 +55,7 @@
 
                         </div> -->
                     </div>
-                    <div class = "content_item">
+                    <div class = "content_item add_film">
                         <div class = "upload_film_image" >
                             <p>Выберите изображение для страницы фильма</p>
                             <input type = "file" id = "upload_film_image_input">
@@ -61,7 +64,7 @@
 
                         </div> -->
                     </div>
-                    <div class = "content_item">
+                    <div class = "content_item add_film">
                         <table>
                             <tbody>
                                 <tr>
@@ -115,10 +118,16 @@
                                         <input id = "age_restrictions" type = "text" class = "" name = "age_restrictions" required>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Сылка на трейлер:</td>
+                                    <td>
+                                        <input id = "trailer" type = "text" class = "" name = "trailer" required>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class = "content_item new_film_name">
+                    <div class = "content_item new_film_name add_film">
                         <label style = "" for = "film_name" class = "">Название фильма:</label>
                         <div style = "" class = "input new_film_name_input">
                             <input id = "film_name" value = "" type = "text" class = "" name = "film_name_text" required/>
@@ -141,5 +150,6 @@
 
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src = "{{ URL::asset('js/admin.js') }}"></script>
+        <script src = "{{ URL::asset('js/admin_html.js') }}"></script>
     </body>
 </html>

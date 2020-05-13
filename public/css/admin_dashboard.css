@@ -104,7 +104,7 @@ body {
 
 .content_item {
     display: grid;
-	background-color: royalblue;
+	background-color: royalblue; 
 	padding-bottom: 5px;
 }
 
@@ -180,5 +180,120 @@ a.button:not(.active):focus {
 }
 
 a.button:not(:hover) {
+    transition: 1s;
+}
+
+.sessions {
+	display: grid;
+	text-align: center;
+	height: 50px;
+	color:white;
+	background-color: #5f5f5f;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	margin: 0 auto 2px auto;
+	border: 1px #5f5f5f solid;
+	border-radius: 4px;
+	width: auto;
+	line-height: 50px;
+}
+
+.sessions_to_remove {
+	display: grid;
+	text-align: center;
+	height: 50px;
+	color:white;
+	background-color: #5f5f5f;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+	margin: 0 auto 2px auto;
+	border: 1px #5f5f5f solid;
+	border-radius: 4px;
+	width: auto;
+	line-height: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    color: white;
+    font-style: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: auto 0 auto 0;
+}
+
+.dropdown select {
+    cursor: pointer;
+    background-color:#5f5f5f;
+    color: #fff;
+    font-size: 15px;
+    padding: .2em;
+    border: 1px white solid;
+    border-radius: 4px;
+    text-overflow: '';
+}
+
+.dropdown select:focus{
+    outline: 0;
+}
+
+a.save_button {
+    width: 20px;
+    height: 30px;
+    padding: 4px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    margin: 20px auto;
+    border-radius: 4px;
+    border: 1px white solid;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+  
+a.save_button:not(.active) {
+    background-color: #5f5f5f;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
+  
+a.save_button:not(.active):hover,
+a.save_button:not(.active):focus {
+    cursor: pointer;
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
+
+a.save_button:not(:hover) {
+    transition: 1s;
+}
+
+a.remove_button {
+    width: 20px;
+    height: 30px;
+    padding: 4px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    margin: 20px auto;
+    border-radius: 4px;
+    border: 1px white solid;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+  
+a.remove_button:not(.active) {
+    background-color: #5f5f5f;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
+  
+a.remove_button:not(.active):hover,
+a.remove_button:not(.active):focus {
+    cursor: pointer;
+    transition: color 200ms linear, text-shadow 500ms linear;
+    color: #fff;
+    text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
+
+a.remove_button:not(:hover) {
     transition: 1s;
 }

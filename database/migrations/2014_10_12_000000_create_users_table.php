@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('api_token');
+            $table->boolean('is_banned')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

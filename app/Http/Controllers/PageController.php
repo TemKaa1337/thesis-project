@@ -52,7 +52,11 @@ class PageController extends Controller
                 if (is_array($places)) {
                     return $places;
                 } else {
-                    return json_decode($places, true);
+                    $places = json_decode($places, true);
+                    if (is_array($places))
+                        return $places;
+                    else
+                        return json_decode($places, true);
                 }
             })(),
             'filmId' => $request->post('filmId'),
@@ -74,7 +78,7 @@ class PageController extends Controller
     public function renderAdminPage()
     {
         return view('admin_dashboard', [
-
+            
         ]);
     }
 }

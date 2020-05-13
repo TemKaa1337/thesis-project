@@ -15,7 +15,7 @@ class AdminController extends Controller
         $mainImage = Str::random(20).'.jpg';
         
         Storage::disk('file_uploads')->putFileAs('//film_previews//', $request->previewImage, $previewImage);
-        Storage::disk('file_uploads')->putFileAs('//film_previews//', $request->filmPageImage, $mainImage);
+        Storage::disk('file_uploads')->putFileAs('//film_page//', $request->filmPageImage, $mainImage);
 
         $newFilm = Films::create([
             'name' => $request->filmName,
@@ -27,14 +27,14 @@ class AdminController extends Controller
             'date_shown_to' => $request->dateTo,
             'country' => $request->country,
             'year' => $request->year,
-            'duration' => $request->filmLength.' минут',
             'producer' => $request->producer,
+            'duration' => $request->filmLength.' минут',
             'actors' => $request->actors,
-            'age_restriction' => $request->ageRestrictions,
+            'age_restriction' => $request->ageRestrictions.'+',
             'trailer' => $request->trailer,
-            'is_shown' => 0
+            'is_shown' => 1
         ]);
 
-        return response()->json(array('result' => $formattedHtml), 200);
+        return response()->json(array('result' => 1), 200);
     }
 }

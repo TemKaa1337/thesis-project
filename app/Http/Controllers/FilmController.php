@@ -7,12 +7,32 @@ use App\Films;
 use App\Slider;
 use App\SessionTime;
 use App\Comments;
+use App\Cinema;
 
 class FilmController extends Controller
 {
     public function getAllFilms()
     {
         return Films::select('id', 'name', 'preview_image', 'genre')->where('is_shown', 1)->get();
+    }
+
+    public function getFilmsData(Request $request)
+    {
+        $filmsData = Films::select('id', 'name')->get();
+        return response()->json(array('result' => $filmsData), 200);
+    }
+
+    public function getCinemaData(Request $request)
+    {
+        $cinemaData = Cinema::select('id', 'name')->get();
+        return response()->json(array('result' => $cinemaData), 200);
+    }
+
+    public function getHallData(Request $request)
+    {
+        $cinemaData = Cinema::select('halls')->get();
+        $hallNames = array_keys(json_decode($cinemaData[0]->halls, true));
+        return response()->json(array('result' => $hallNames), 200);
     }
 
     public function getFilmsSlider()
@@ -267,5 +287,66 @@ class FilmController extends Controller
     public function getCommentsToFilm($filmId)
     {
         return Comments::where('film_id', $filmId)->get();
+    }
+
+    public function saveSessionTime(Request $request)
+    {
+        $hallPlaces = Cinema::select('halls')->get()[0]->halls;
+        $halls = json_encode(json_decode($hallPlaces, true)[$request->hallName]);
+        
+        SessionTime::create([
+            'film_id' => $request->filmId,
+            'date_shown' => date('Y-m-d', strtotime($request->datetimeShown)),
+            'datetime_shown' => date('Y-m-d H:i:s', strtotime($request->datetimeShown)),
+            'cinema_name' => Cinema::where('id', $request->cinemaId)->get()[0]->name,
+            'hall_places' => $halls
+        ]);
+        
+        return response()->json(array('result' => 1), 200);
+    }
+
+    public function getAllSessions(Request $request)
+    {
+        $html = '';
+        $sessions = SessionTime::select('id', 'datetime_shown', 'film_id', 'cinema_name')->where('datetime_shown', '>=', date('Y-m-d H:i:s'))->orderBy('datetime_shown', 'asc')->get();
+        
+        foreach ($sessions as $session) {
+            $html .= "
+                <div class = 'sessions_to_remove'>
+                    <div>
+                        <span class = 'dropdown'>
+                            <select id = 'session_time' class = 'film_filter_select'>
+                                <option disabled selected value>".$session->datetime_shown->format('d.m.Y H:i')."</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div>
+                        <span id = 'cinema_span' class = 'dropdown'>
+                            <select id = 'cinema' class = 'film_filter_select'>
+                                <option disabled selected value>".Films::where('id', $session->film_id)->get()[0]->name."</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div>
+                        <span id = 'hall_span' class = 'dropdown'>
+                            <select id = 'hall' class = 'film_filter_select'>
+                                <option disabled selected value>Кинотеатр ".$session->cinema_name."</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div>
+                        <a data-session = ".$session->id." class = 'remove_button'>Удалить сеанс</a>
+                    </div>
+                </div>";
+        }
+        
+
+        return response()->json(array('result' => $html), 200);
+    }
+
+    public function removeSession(Request $request)
+    {
+        SessionTime::where('id', $request->sessionId)->delete();
+        return $this->getAllSessions($request);
     }
 }

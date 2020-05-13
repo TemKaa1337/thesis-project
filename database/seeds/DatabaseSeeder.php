@@ -133,8 +133,8 @@ class DatabaseSeeder extends Seeder
         $lohotronCinema = $belarusCinema;
 
         Cinema::insert([
-            ['name' => 'Лохотрон'],
-            ['name' => 'Беларусь']
+            ['name' => 'Лохотрон', 'halls' => json_encode(['Малый' => $belarusCinema, 'Большой' => $belarusCinema])],
+            ['name' => 'Беларусь', 'halls' => json_encode(['Малый' => $belarusCinema, 'Большой' => $belarusCinema])]
         ]);
         
         Role::create(['role_name' => 'admin']);

@@ -15,7 +15,7 @@ function addNewFilm(event) {
     form.append('producer', document.getElementById('producer').value);
     form.append('actors', document.getElementById('actors').value);
     form.append('ageRestrictions', document.getElementById('age_restrictions').value);
-    form.append('trailer', '');
+    form.append('trailer', document.getElementById('trailer').value);
     form.append('previewImage', document.getElementById('upload_film_image_preview_input').files[0]);
     form.append('filmPageImage', document.getElementById('upload_film_image_input').files[0]);
 
@@ -30,7 +30,7 @@ function addNewFilm(event) {
             'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
         },
         success: function (data) {
-            console.log('nice');
+            alert('Фильм успешно добавлен!');
         }
     });
 }

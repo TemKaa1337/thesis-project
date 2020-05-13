@@ -25,6 +25,12 @@ Route::post('/book/places', [
 
 Route::post('/leave/comment', 'UserController@submitUserComment')->middleware('auth:api');
 Route::post('/save/new_film', 'AdminController@saveNewFilm')->middleware('auth:api');
+Route::post('/get/films/data', 'FilmController@getFilmsData')->middleware('auth:api');
+Route::post('/get/cinema/data', 'FilmController@getCinemaData')->middleware('auth:api');
+Route::post('/get/hall/data', 'FilmController@getHallData')->middleware('auth:api');
+Route::post('/save/session/data', 'FilmController@saveSessionTime')->middleware('auth:api');
+Route::post('/get/session/data', 'FilmController@getAllSessions')->middleware('auth:api');
+Route::post('/remove/session/data', 'FilmController@removeSession')->middleware('auth:api');
 
 Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();

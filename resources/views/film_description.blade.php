@@ -26,11 +26,11 @@
                             <li><a href = "{{ route('register') }}">Регистрация</a></li>
                             <li><a href = "{{ route('login') }}">Вход</a></li>
                         @else
+                            @if (Auth::user()->hasAnyRole('admin'))
+                                <li><a href = "{{ url('/admin/dashboard') }}">Панель администратора</a></li>
+                            @endif
                             <li><a href = "{{ url('/cabinet') }}">Личный кабинет</a></li>
                             <li><a href = "{{ route('logout') }}">Выход</a></li>
-                        @endif
-                        @if (Auth::user()->hasAnyRole('admin'))
-                            <li><a href = "{{ url('/admin/dashboard') }}">Панель администратора</a></li>
                         @endif
                     </ul>
                 </nav>
@@ -164,6 +164,12 @@
                         <div class="comment_container">
                             <img src = "{{ asset($comment->avatar) }}" alt="Avatar" style="width:90px">
                             <p><span>{{ $comment->author }}</span>{{ $comment->insert_datetime->format('d.m.Y') }} в {{ $comment->insert_datetime->format('H:i') }}</p>
+                            @if (Auth::user())
+                                @if (Auth::user()->hasAnyRoles(['admin', 'manager']))
+                                <a id = "button_delete" class = "button">Удалить комментарий</a>
+                                <a id = "button_ban" class = "button">Заблокировать пользователя</a>
+                                @endif
+                            @endif
                             <p>{{ $comment->comment }}</p>
                         </div>
                     @endforeach

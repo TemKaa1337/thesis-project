@@ -26,12 +26,13 @@
                             <li><a href = "{{ route('register') }}">Регистрация</a></li>
                             <li><a href = "{{ route('login') }}">Вход</a></li>
                         @else
+                            @if (Auth::user()->hasAnyRole('admin'))
+                                <li><a href = "{{ url('/admin/dashboard') }}">Панель администратора</a></li>
+                            @endif
                             <li><a href = "{{ url('/cabinet') }}">Личный кабинет</a></li>
                             <li><a href = "{{ route('logout') }}">Выход</a></li>
                         @endif
-                        @if (Auth::user()->hasAnyRole('admin'))
-                            <li><a href = "{{ url('/admin/dashboard') }}">Панель администратора</a></li>
-                        @endif
+                        
                     </ul>
                 </nav>
             </div>
