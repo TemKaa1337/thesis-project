@@ -149,30 +149,38 @@
                 <div class = "film_page_other">
                     <h3>Описание фильма</h3>
                     <p id = "p_description">{{$filmDescription->description}}</p>
-                    <iframe width="560" height="315" src="{{$filmDescription->trailer}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    @if (Auth::user())
-                        <div class = "leave_comment">
-                            <form id = "comment_submit" action="#" method="post" onsubmit = "e.preventDefault()">
-                                <textarea placeholder = "Оставьте отзыв." data-film = "{{ $filmId }}"></textarea>
-                                <button class = "submit_comment" type="submit">Отправить</button>
-                            </form>
-                        </div>
-                    @endif
-                    <div class = "comment_wrapper">
-                    @foreach ($comments as $comment)
-                        <hr></hr>
-                        <div class="comment_container">
-                            <img src = "{{ asset($comment->avatar) }}" alt="Avatar" style="width:90px">
-                            <p><span>{{ $comment->author }}</span>{{ $comment->insert_datetime->format('d.m.Y') }} в {{ $comment->insert_datetime->format('H:i') }}</p>
-                            @if (Auth::user())
-                                @if (Auth::user()->hasAnyRoles(['admin', 'manager']))
-                                <a id = "button_delete" class = "button">Удалить комментарий</a>
-                                <a id = "button_ban" class = "button">Заблокировать пользователя</a>
-                                @endif
+                    <iframe width="560" height="315" src="{{ $filmDescription->trailer }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        @if (Auth::user())
+                            @if (!Auth::user()->is_banned)
+                                <div class = "leave_comment">
+                                    <form id = "comment_submit" method="post" onsubmit = "e.preventDefault()">
+                                        <textarea placeholder = "Оставьте отзыв." data-film = "{{ $filmId }}"></textarea>
+                                        <button class = "submit_comment" type="submit">Отправить</button>
+                                    </form>
+                                </div>
                             @endif
-                            <p>{{ $comment->comment }}</p>
-                        </div>
-                    @endforeach
+                        @endif
+                    <div class = "comment_wrapper">
+                        @foreach ($comments as $comment)
+                            <hr></hr>
+                            <div class="comment_container">
+                                <img src = "{{ asset($comment->avatar) }}" alt="Avatar" style="width:90px">
+                                <p>
+                                    <span>
+                                        {{ $comment->author }}
+                                    </span>
+                                    {{ $comment->insert_datetime->format('d.m.Y') }} в {{ $comment->insert_datetime->format('H:i') }}
+                                    @if (Auth::user())
+                                        @if (Auth::user()->hasAnyRoles(['admin', 'manager']))
+                                            <a data-comment = "{{ $comment->id }}" data-film = "{{ $filmId }}" id = "button_delete" class = "button_delete">Delete</a>
+                                            <a data-user = "{{ $comment->user_id }}" data-film = "{{ $filmId }}"  id = "button_ban" class = "button_ban">Ban</a>
+                                        @endif
+                                    @endif
+                                </p>
+                                
+                                <p>{{ $comment->comment }}</p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
