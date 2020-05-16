@@ -20,6 +20,7 @@ class CreateUserBookedPlacesTable extends Migration
             $table->dateTime('datetime_shown');
             $table->string('cinema');
             $table->json('booked_places');
+            $table->integer('attempt');
         });
     }
 

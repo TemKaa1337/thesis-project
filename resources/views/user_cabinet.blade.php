@@ -39,10 +39,9 @@
             <div class = "user_content">
                 <nav class = "navigation">
                     <ul id = "navigation">
-                        <li class = "selected">Мои билеты</li>
-                        <li>Мои комментарии</li>
-                        <li>Мои бонусы</li>
-                        <li>Информация обо мне</li>
+                        <li id = "my_tickets" class = "selected">Мои билеты</li>
+                        <li id = "my_bonuses">Мои бонусы</li>
+                        <li id = "my_info">Информация обо мне</li>
                     </ul>
                 </nav>
                 <div class = "navigation_content">
@@ -82,30 +81,6 @@
                             @endforeach
                         </div>
                     @endforeach
-                    <!-- <div class = "ticket_item">
-                        <div>
-                            <p>Интерстеллар</p>
-                        </div>
-                        <div>
-                            <p>21.05.2020 19:45</p>
-                        </div>
-                        <div>
-                            <p>Мест: 2</p>
-                        </div>
-                        <div>
-                            <p class = 'film_active'>Активен</p>
-                        </div>
-                        <div>
-                            <p>Кинотеатр: Беларусь</p>
-                        </div>
-                        <div>
-                            <p>Ряд: 10</p>
-                        </div>
-                        <div>
-                            <p>Место: 10</p>
-                        </div>
-                        <div style = "text-align: center;"><a id = "book_button" class = "book_button">Снять бронь</a></div>
-                    </div> -->
                 </div>
             </div>
             <div></div>
@@ -117,5 +92,6 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src = "{{ URL::asset('js/user_cabinet.js') }}"></script>
     </body>
 </html>

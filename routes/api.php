@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/get/filter/options', 'FilmController@getFilterOptions');
 Route::post('/get/filter/movies', 'FilmController@getFilterMovies');
 Route::post('/get/session/times', 'FilmController@getNewSessionTimes');
+Route::post('/get/films/data', 'FilmController@getFilmsData')->middleware('auth:api');
+Route::post('/get/cinema/data', 'FilmController@getCinemaData')->middleware('auth:api');
+Route::post('/get/hall/data', 'FilmController@getHallData')->middleware('auth:api');
+
+Route::post('/get/user/tickets', 'UserController@getAllTickets')->middleware('auth:api');
+Route::post('/get/user/bonuses', 'UserController@getUserBonuses')->middleware('auth:api');
+Route::post('/get/user/info', 'UserController@getUserInfo')->middleware('auth:api');
+
 Route::post('/reset/filters', 'FilmController@resetFilmFilters');
 
 Route::post('/book/places', [
@@ -27,9 +35,6 @@ Route::post('/leave/comment', 'UserController@submitUserComment')->middleware('a
 Route::post('/delete/comment', 'AdminController@makeAction')->middleware('auth:api');
 
 Route::post('/save/new_film', 'AdminController@saveNewFilm')->middleware('auth:api');
-Route::post('/get/films/data', 'FilmController@getFilmsData')->middleware('auth:api');
-Route::post('/get/cinema/data', 'FilmController@getCinemaData')->middleware('auth:api');
-Route::post('/get/hall/data', 'FilmController@getHallData')->middleware('auth:api');
 Route::post('/save/session/data', 'FilmController@saveSessionTime')->middleware('auth:api');
 Route::post('/get/session/data', 'FilmController@getAllSessions')->middleware('auth:api');
 Route::post('/remove/session/data', 'FilmController@removeSession')->middleware('auth:api');

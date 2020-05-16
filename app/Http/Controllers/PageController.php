@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\UserController;
 use App\SessionTime;
+use App\Cinema;
 
 class PageController extends Controller
 {
@@ -79,6 +80,19 @@ class PageController extends Controller
     {
         return view('admin_dashboard', [
             
+        ]);
+    }
+
+    public function renderCinemaPage($cinemaId)
+    {
+        $films = new FilmController();
+        $slider = $films->getFilmsSlider();
+        $cinemaData = Cinema::where('id', $cinemaId)->get();
+        
+        return view('cinema_description', [
+            'sliders' => $slider,
+            'cinemaId' => $cinemaId,
+            'cinemaData' => $cinemaData[0]
         ]);
     }
 }

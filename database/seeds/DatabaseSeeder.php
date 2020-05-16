@@ -7,6 +7,7 @@ use App\Films;
 use App\Slider;
 use App\SessionTime;
 use App\Cinema;
+use App\Bonuses;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
@@ -130,11 +131,50 @@ class DatabaseSeeder extends Seeder
             ] 
         ]);
 
+        Bonuses::insert([
+            [
+                'name' => 'Скидка на билет 5%',
+                'days_active' => 45
+            ],
+            [
+                'name' => 'Скидка на ассортимент бара 5%',
+                'days_active' => 30
+            ]
+        ]);
+
         $lohotronCinema = $belarusCinema;
 
         Cinema::insert([
-            ['name' => 'Лохотрон', 'halls' => json_encode(['Малый' => $belarusCinema, 'Большой' => $belarusCinema])],
-            ['name' => 'Беларусь', 'halls' => json_encode(['Малый' => $belarusCinema, 'Большой' => $belarusCinema])]
+            [
+                'name' => 'Лохотрон', 
+                'halls' => json_encode([
+                    'Малый' => $belarusCinema, 
+                    'Большой' => $belarusCinema
+                ]),
+                'cinema_image' => 'img/cinema_page/belarus.jpg',
+                'date_created' => date('Y-m-d'),
+                'description' => 'Найс киноеатр',
+                'terminal' => true,
+                'bar' => true,
+                'parking' => true,
+                'metro' => 'Автозаводская',
+                'phones' => '+375296530221'
+            ],
+            [
+                'name' => 'Беларусь', 
+                'halls' => json_encode([
+                    'Малый' => $belarusCinema, 
+                    'Большой' => $belarusCinema
+                ]),
+                'cinema_image' => 'img/cinema_page/belarus.jpg',
+                'date_created' => date('Y-m-d'),
+                'description' => 'Найс киноеатр',
+                'terminal' => true,
+                'bar' => true,
+                'parking' => true,
+                'metro' => 'Автозаводская',
+                'phones' => '+375296530221'
+            ]
         ]);
         
         Role::create(['role_name' => 'admin']);
@@ -337,6 +377,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d'),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -344,6 +385,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d'),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -351,6 +393,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+1 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -358,6 +401,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+1 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +1 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -365,6 +409,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+1 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +1 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -372,6 +417,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+1 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +1 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -379,6 +425,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+1 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +1 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -386,6 +433,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +2 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -393,6 +441,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -400,6 +449,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -407,6 +457,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -414,6 +465,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +2 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -421,6 +473,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +2 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -428,6 +481,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +2 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -435,6 +489,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+2 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +2 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -442,6 +497,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -449,6 +505,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -456,6 +513,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +3 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -463,6 +521,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +3 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -470,6 +529,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -477,6 +537,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -484,6 +545,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +3 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -491,6 +553,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +3 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -498,6 +561,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+3 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +3 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ],
             [
@@ -505,6 +569,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+4 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('20:00 +4 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -512,6 +577,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+4 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('21:00 +4 days')),
                 'cinema_name' => 'Лохотрон',
+                'cinema_id' => 1,
                 'hall_places' => json_encode($lohotronCinema)
             ],
             [
@@ -519,6 +585,7 @@ class DatabaseSeeder extends Seeder
                 'date_shown' => date('Y-m-d', strtotime('+4 days')),
                 'datetime_shown' => date('Y-m-d H:i', strtotime('22:00 +4 days')),
                 'cinema_name' => 'Беларусь',
+                'cinema_id' => 2,
                 'hall_places' => json_encode($belarusCinema)
             ]
         ]);

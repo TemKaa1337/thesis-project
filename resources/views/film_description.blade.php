@@ -80,24 +80,13 @@
                     <div style = "height: 50px;">
                         <table id = "sessions_table">
                             <tbody>
-                                <!-- @foreach ($sessionTimes as $cinema => $sessions)
-                                    <tr>
-                                        <td>Кинотеатр {{ $cinema }}:</td>
-                                        @foreach ($sessions as $session)
-                                            <td><a data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</a></td>
-                                        @endforeach
-                                    </tr>
-                                @endforeach -->
-                                
                                 @foreach ($sessionTimes as $cinema => $sessions)
                                     <tr>
-                                        <td>Кинотеатр {{ $cinema }}:</td>
-                                        @foreach ($sessions as $session)
+                                        <td><a href = "{{ url($sessions['cinemaId']) }}" >Кинотеатр {{ $cinema }}:</a></td>
+                                        @foreach ($sessions['sessions'] as $session)
                                             <td>
                                                 <form action = "{{ url('book/film') }}" method = "POST">
-                                                    <!-- <input type = 'hidden' name = '_token' value = "{{ csrf_token() }}"> -->
                                                     @csrf
-                                                    <!-- <a data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</a> -->
                                                     <input type = "hidden" name = "filmId" value = "{{ $filmId }}">
                                                     <input type = "hidden" name = "sessionTime" value = "{{ $session->format('Y-m-d H:i:s') }}">
                                                     <input type = "hidden" name = "cinema" value = "{{ $cinema }}">

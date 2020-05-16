@@ -20,6 +20,7 @@ class CreateSessionTimesTable extends Migration
             $table->dateTime('datetime_shown');
             $table->string('cinema_name');
             $table->json('hall_places');
+            $table->integer('cinema_id');
         });
     }
 

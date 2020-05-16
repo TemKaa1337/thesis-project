@@ -18,7 +18,6 @@ class CreateUserBonusesTable extends Migration
             $table->integer('user_id');
             $table->integer('bonus_id');
             $table->datetime('expires_at');
-            $table->boolean('is_active');
         });
     }
 

@@ -74,4 +74,20 @@ class UserController extends Controller
                 <p>".$newComment->comment."</p>
             </div>";
     }
+
+    public function getAllTickets(Request $request)
+    {
+        return response()->json(array('result' => ''), 200);
+    }
+
+    public function getUserBonuses(Request $request)
+    {
+        $userBonuses = UserBonuses::where('user_id', Auth::user()->id)->get();
+        return response()->json(array('result' => ''), 200);
+    }
+
+    public function getUserInfo(Request $request)
+    {
+        return response()->json(array('result' => ''), 200);
+    }
 }

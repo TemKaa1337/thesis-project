@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cinema extends Model
 {
-    protected $fillabel = [
-        'name', 'halls', 'description', 'date_created', 'session_times', 'films', 'terminal', 'bar', 'parking', 'metro', 'phones'
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id', 'name', 'halls', 'description', 'date_created', 'terminal', 'bar', 'parking', 'metro', 'phones'
+    ];
+
+    protected $dates = [
+        'date_created'
     ];
 }

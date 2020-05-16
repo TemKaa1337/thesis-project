@@ -10,7 +10,7 @@ class SessionTime extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        'film_id', 'date_shown', 'datetime_shown', 'cinema_name', 'hall_places'
+        'film_id', 'date_shown', 'datetime_shown', 'cinema_name', 'hall_places', 'cinema_id'
     ];
 
     protected $dates = [

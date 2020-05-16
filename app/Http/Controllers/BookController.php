@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SessionTime;
 use App\UserBookedPlaces;
+use App\UserBonuses;
+use App\Bonuses;
 use App\Http\Controllers\SessionController;
 use Auth;
 
@@ -28,6 +30,7 @@ class BookController extends Controller
         }
         
         $result = $this->bookPlacesForUser($placesSchema, $request);
+        $this->giveUserBonuses();
 
         return response()->json(array('result' => $result), 200);
     }
@@ -62,7 +65,8 @@ class BookController extends Controller
                 'user_id' => Auth::user()->id,
                 'datetime_shown' => $request->post('datetime'),
                 'cinema' => $request->post('cinema'),
-                'booked_places' => json_encode($places)
+                'booked_places' => json_encode($places),
+                'attempt' => 1
             ]);
 
             $this->updateBookedPlaces($places, $request);
@@ -117,6 +121,13 @@ class BookController extends Controller
                 'cinema' => $request->post('cinema')
             ])->update(['booked_places' => json_encode($userBookedPlaces)]);
 
+            UserBookedPlaces::where([
+                'film_id' => $request->post('filmId'),
+                'user_id' => Auth::user()->id,
+                'datetime_shown' => $request->post('datetime'),
+                'cinema' => $request->post('cinema')
+            ])->increment('attempt', 1);
+
             $this->updateBookedPlaces($userBookedPlaces, $request);
         }
 
@@ -159,5 +170,28 @@ class BookController extends Controller
         }
 
         return $count;
+    }
+
+    public function giveUserBonuses()
+    {
+        $placesCount = 0;
+        $places = UserBookedPlaces::select('booked_places', 'attempt')->where('user_id', Auth::user()->id)->get();
+        
+        foreach ($places as $place) {
+            $userPlaces = json_decode($place->booked_places, true);
+            $placesCount += $place->attempt;
+        }
+        
+        $balance = $placesCount % 10;
+        if ($placesCount == 1 || $balance == 0) {
+            $bonusNumber = random_int(0, 1);
+            $newUserBonusId = Bonuses::select('id', 'days_active')->get()[$bonusNumber];
+
+            UserBonuses::insert([
+                'user_id' => Auth::user()->id,
+                'bonus_id' => $newUserBonusId->id,
+                'expires_at' => date('Y-m-d', strtotime('+ '.$newUserBonusId->days_active.' day'))
+            ]);
+        }
     }
 }

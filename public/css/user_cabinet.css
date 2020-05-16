@@ -107,7 +107,6 @@ body {
 	color:white;
 	background-color: #5f5f5f;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-	/* height: 50px; */
 	margin: 0 auto 2px auto;
 	border: 1px #5f5f5f solid;
 	border-radius: 4px;

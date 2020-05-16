@@ -16,7 +16,7 @@ class CreateBonusesTable extends Migration
         Schema::create('bonuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->integer('days_active');
         });
     }
 

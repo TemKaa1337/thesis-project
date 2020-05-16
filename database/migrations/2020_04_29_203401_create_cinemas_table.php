@@ -17,15 +17,14 @@ class CreateCinemasTable extends Migration
             $table->id();
             $table->string('name');
             $table->json('halls')->nullable();
+            $table->string('cinema_image');
             $table->string('description')->nullable();
-            $table->string('date_created')->nullable();
-            $table->json('session_times')->nullable();
-            $table->json('films')->nullable();
+            $table->dateTime('date_created')->nullable();
             $table->boolean('terminal')->nullable();
             $table->boolean('bar')->nullable();
             $table->boolean('parking')->nullable();
-            $table->boolean('metro')->nullable();
-            $table->json('phones')->nullable();
+            $table->string('metro')->nullable();
+            $table->string('phones')->nullable();
         });
     }
 

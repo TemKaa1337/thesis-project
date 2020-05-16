@@ -207,17 +207,19 @@ class FilmController extends Controller
     public function getSessionTimes($filmId, $filmSessionDays)
     {
         $result = [];
-        $sessions = SessionTime::select('cinema_name', 'datetime_shown')->where([
+        $sessions = SessionTime::select('cinema_name', 'datetime_shown', 'cinema_id')->where([
             ['film_id', '=', $filmId],
             ['date_shown', '=', $filmSessionDays[0]->date_shown]
         ])->get();
 
         foreach ($sessions as $session) {
             if (array_key_exists($session->cinema_name, $result)) {
-                array_push($result[$session->cinema_name], $session->datetime_shown);
+                array_push($result[$session->cinema_name]['sessions'], $session->datetime_shown);
             } else {
-                $result[$session->cinema_name] = [$session->datetime_shown];
+                $result[$session->cinema_name]['sessions'] = [$session->datetime_shown];
             }
+
+            $result[$session->cinema_name]['cinemaId'] = 'cinema/'.$session->cinema_id;
         }
 
         return $result;
@@ -299,6 +301,7 @@ class FilmController extends Controller
             'date_shown' => date('Y-m-d', strtotime($request->datetimeShown)),
             'datetime_shown' => date('Y-m-d H:i:s', strtotime($request->datetimeShown)),
             'cinema_name' => Cinema::where('id', $request->cinemaId)->get()[0]->name,
+            'cinema_id' => $request->cinemaId,
             'hall_places' => $halls
         ]);
         
