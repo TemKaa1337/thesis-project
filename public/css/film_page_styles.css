@@ -6,24 +6,24 @@
 
 .film_page_preview {
     display: grid;
-    background-color: blue;
+    /* background-color: blue; */
 }
 
 .film_page_description {
     display: grid;
-    background-color: green;
+    /* background-color: green; */
 }  
 
 .film_page_characteristics {
     width: 270px;
     display: grid;
-    background-color: rebeccapurple;
+    /* background-color: rebeccapurple; */
     margin: 7px auto 0 auto;
 }
 
 .film_page_other {
     display: grid;
-    background-color: rosybrown;
+    /* background-color: rosybrown; */
     width: 100%;
 }
 

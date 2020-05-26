@@ -195,6 +195,8 @@ a.button:not(:hover) {
 	border-radius: 4px;
 	width: auto;
 	line-height: 50px;
+	width: 99%;
+	margin-right: 0;
 }
 
 .sessions_to_remove {
@@ -209,6 +211,7 @@ a.button:not(:hover) {
 	border-radius: 4px;
 	width: auto;
 	line-height: 50px;
+	margin-left: 5px;
 }
 
 .dropdown {

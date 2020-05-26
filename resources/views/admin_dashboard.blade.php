@@ -18,8 +18,7 @@
                 <nav class = "nav_header">
                     <ul>
                         <li><a href = "{{ url('/') }}">Главная</a></li>
-                        <li><a href = "mainpage">Cinema ticket booking</a></li>
-                        <li><a href = "mainpage">Contacts</a></li>
+                        <li><a href = "mainpage">Контакты</a></li>
                         <li><a href = "mainpage">О нас</a></li>
                         @if (Auth::guest())
                             <li><a href = "{{ route('register') }}">Регистрация</a></li>
