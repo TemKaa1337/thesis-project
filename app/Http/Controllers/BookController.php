@@ -202,19 +202,34 @@ class BookController extends Controller
         $this->removeUserPlace($request);
         $this->removeSessionPlace($request);
 
-        return $this->getAllTickets($request);
+        return $user->getAllTickets($request);
     }
 
     public function removeUserPlace($request)
     {
-        // dd($request->all());
+        $filmId = Films::select('id')->where('name', $request->filmName)->get()[0]->id;
         $userPlaces = json_decode(UserBookedPlaces::select('booked_places')->where([
             ['user_id', Auth::user()->id],
-            ['cinema' => $request->cinemaName],
-            ['datetime_shown' => $request->date],
-            ['film_id' => Films::select('id')->where('name', $request->filmName)->get()[0]->id]
+            ['cinema', $request->cinemaName],
+            ['datetime_shown', $request->date],
+            ['film_id', $filmId]
         ])->get()[0]->booked_places, true);
-        dd($userPlaces);
+
+        if (count($userPlaces[$request->row]) == 1) {
+            unset($userPlaces[$request->row]);
+        } else {
+            if (($key = array_search($request->place, $userPlaces[$request->row])) !== false) {
+                unset($userPlaces[$request->row][$key]);
+                $userPlaces[$request->row] = array_values($userPlaces[$request->row]);
+            }
+        }
+
+        UserBookedPlaces::where([
+            ['user_id', Auth::user()->id],
+            ['cinema', $request->cinemaName],
+            ['datetime_shown', $request->date],
+            ['film_id', $filmId]
+        ])->update(['booked_places' => json_encode($userPlaces)]);
     }
 
     public function removeSessionPlace($request)
