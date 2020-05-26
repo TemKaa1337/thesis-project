@@ -234,6 +234,22 @@ class BookController extends Controller
 
     public function removeSessionPlace($request)
     {
-        
+        $filmId = Films::select('id')->where('name', $request->filmName)->get()[0]->id;
+        $hallPlaces = SessionTime::select('hall_places')->where([
+            ['film_id', $filmId],
+            ['datetime_shown', $request->date],
+            ['cinema_name', $request->cinemaName],
+        ])->get()[0]->hall_places;
+
+        if (!is_array($hallPlaces))
+            $hallPlaces = json_decode($hallPlaces, true);
+
+        $hallPlaces[$request->row][$request->place] = 0;
+
+        SessionTime::where([
+            ['film_id', $filmId],
+            ['datetime_shown', $request->date],
+            ['cinema_name', $request->cinemaName],
+        ])->update(['hall_places' => json_encode($hallPlaces)]);
     }
 }
