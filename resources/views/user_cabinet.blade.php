@@ -74,7 +74,7 @@
                                         <p>Место: {{ $places['place'] }}</p>
                                     </div>
                                     <div style = "text-align: center;">
-                                        <a id = "book_button" class = "book_button" data-date = "{{ $filmInfo['datetime_shown'] }}" data-place = "{{ $places['place'] }}" data-row = "{{ $places['row'] }}" data-cinema = "{{ $filmInfo['filmId'] }}">Снять бронь</a>
+                                        <a id = "unbook_button" class = "unbook_button" data-film = "{{ $filmName }}" data-date = "{{ $filmInfo['datetime_shown'] }}" data-place = "{{ $places['place'] }}" data-row = "{{ $places['row'] }}" data-cinema = "{{ $filmInfo['cinema'] }}">Снять бронь</a>
                                     </div>
                                 @endforeach
                             @endforeach

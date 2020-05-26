@@ -77,7 +77,51 @@ class UserController extends Controller
 
     public function getAllTickets(Request $request)
     {
-        return response()->json(array('result' => ''), 200);
+        $html = '';
+        $bookedPlaces = $this->getAllBookedPlaces();
+        
+        foreach ($bookedPlaces as $sessions) {
+            $html .= "<div class = 'ticket_item'>";
+            foreach ($sessions as $filmName => $filmInfo) {
+                $html .= "
+                    <div>
+                        <p>".$filmName."</p>
+                    </div>
+                    <div>
+                        <p>".$filmInfo['datetime_shown']."</p>
+                    </div>
+                    <div>
+                        <p>Мест: ".$filmInfo['placesCount']."</p>
+                    </div>
+                    <div>
+                ";
+
+                if ($filmInfo['status'])
+                    $html .= "<p class = 'film_active'>Активен</p></div>";
+                else
+                    $html .= "<p class = 'film_disabled'>Не активен</p></div>";
+
+                foreach ($filmInfo['places'] as $places) {
+                    $html .= "
+                        <div>
+                            <p>Кинотеатр: ".$filmInfo['cinema']."</p>
+                        </div>
+                        <div>
+                            <p>Ряд: ".$places['row']."</p>
+                        </div>
+                        <div>
+                            <p>Место: ".$places['place']."</p>
+                        </div>
+                        <div style = 'text-align: center;'>
+                            <a id = 'unbook_button' class = 'unbook_button' data-film = '". $filmName ."' data-date = '".$filmInfo['datetime_shown']."' data-place = '".$places['place']."' data-row = '".$places['row']."' data-cinema = '".$filmInfo['cinema']."'>Снять бронь</a>
+                        </div>
+                    ";
+                }
+            }
+            $html .= "</div>";
+        }
+
+        return response()->json(array('result' => $html), 200);
     }
 
     public function getUserBonuses(Request $request)

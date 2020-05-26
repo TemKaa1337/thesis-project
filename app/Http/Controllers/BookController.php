@@ -7,6 +7,7 @@ use App\SessionTime;
 use App\UserBookedPlaces;
 use App\UserBonuses;
 use App\Bonuses;
+use App\Films;
 use App\Http\Controllers\SessionController;
 use Auth;
 
@@ -193,5 +194,31 @@ class BookController extends Controller
                 'expires_at' => date('Y-m-d', strtotime('+ '.$newUserBonusId->days_active.' day'))
             ]);
         }
+    }
+
+    public function unbookTicket(Request $request)
+    {
+        $user = new UserController();
+        $this->removeUserPlace($request);
+        $this->removeSessionPlace($request);
+
+        return $this->getAllTickets($request);
+    }
+
+    public function removeUserPlace($request)
+    {
+        // dd($request->all());
+        $userPlaces = json_decode(UserBookedPlaces::select('booked_places')->where([
+            ['user_id', Auth::user()->id],
+            ['cinema' => $request->cinemaName],
+            ['datetime_shown' => $request->date],
+            ['film_id' => Films::select('id')->where('name', $request->filmName)->get()[0]->id]
+        ])->get()[0]->booked_places, true);
+        dd($userPlaces);
+    }
+
+    public function removeSessionPlace($request)
+    {
+        
     }
 }

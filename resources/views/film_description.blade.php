@@ -54,7 +54,7 @@
                     <img class = "film_image_name" src = "{{ asset($filmDescription->film_page_image) }}" style = "width: 270px;"></img>
                 </div>
                 <div class = "film_page_description">
-                    <h1>{{$filmDescription->name}}</h1>
+                    <h1>{{ $filmDescription->name }}</h1>
                     <hr></hr>
                     <div class = "">
                         <table>

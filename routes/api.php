@@ -38,6 +38,7 @@ Route::post('/save/new_film', 'AdminController@saveNewFilm')->middleware('auth:a
 Route::post('/save/session/data', 'FilmController@saveSessionTime')->middleware('auth:api');
 Route::post('/get/session/data', 'FilmController@getAllSessions')->middleware('auth:api');
 Route::post('/remove/session/data', 'FilmController@removeSession')->middleware('auth:api');
+Route::post('/remove/user/ticket', 'BookController@unbookTicket')->middleware('auth:api');
 
 Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
