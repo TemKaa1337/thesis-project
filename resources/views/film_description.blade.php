@@ -54,51 +54,57 @@
                     <img class = "film_image_name" src = "{{ asset($filmDescription->film_page_image) }}" style = "width: 270px;"></img>
                 </div>
                 <div class = "film_page_description">
-                    <h1>{{ $filmDescription->name }}</h1>
-                    <hr></hr>
-                    <div class = "">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    @foreach ($sessionDayNames as $dayName)
-                                        <td>{{ $dayName }}</td>
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($sessionDayValues as $dayValue)
-                                        @if ($loop->first)
-                                            <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "enabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
-                                        @else
-                                            <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "disabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
-                                        @endif
-                                    @endforeach
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style = "height: 50px;">
-                        <table id = "sessions_table">
-                            <tbody>
-                                @foreach ($sessionTimes as $cinema => $sessions)
+                    @if ($sessionTimes !== [])
+                        <h1>{{ $filmDescription->name }}</h1>
+                    @else
+                        <h1 data-cinema = "{{ $filmDescription->name }}" >{{ $filmDescription->name }}   <button type = "submit" data-cinema = "{{ $filmDescription->name }}" class = "want_to_see">Хочу посмотреть</button></h1>
+                    @endif
+                    @if ($sessionTimes !== [])
+                        <hr></hr>
+                        <div class = "">
+                            <table>
+                                <tbody>
                                     <tr>
-                                        <td><a href = "{{ url($sessions['cinemaId']) }}" >Кинотеатр {{ $cinema }}:</a></td>
-                                        @foreach ($sessions['sessions'] as $session)
-                                            <td>
-                                                <form action = "{{ url('book/film') }}" method = "POST">
-                                                    @csrf
-                                                    <input type = "hidden" name = "filmId" value = "{{ $filmId }}">
-                                                    <input type = "hidden" name = "sessionTime" value = "{{ $session->format('Y-m-d H:i:s') }}">
-                                                    <input type = "hidden" name = "cinema" value = "{{ $cinema }}">
-                                                    <button type = "submit" data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</button>
-                                                </form>
-                                            </td>
+                                        @foreach ($sessionDayNames as $dayName)
+                                            <td>{{ $dayName }}</td>
                                         @endforeach
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr></hr>
+                                    <tr>
+                                        @foreach ($sessionDayValues as $dayValue)
+                                            @if ($loop->first)
+                                                <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "enabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
+                                            @else
+                                                <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "disabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style = "height: 50px;">
+                            <table id = "sessions_table">
+                                <tbody>
+                                    @foreach ($sessionTimes as $cinema => $sessions)
+                                        <tr>
+                                            <td><a href = "{{ url($sessions['cinemaId']) }}" >Кинотеатр {{ $cinema }}:</a></td>
+                                            @foreach ($sessions['sessions'] as $session)
+                                                <td>
+                                                    <form action = "{{ url('book/film') }}" method = "POST">
+                                                        @csrf
+                                                        <input type = "hidden" name = "filmId" value = "{{ $filmId }}">
+                                                        <input type = "hidden" name = "sessionTime" value = "{{ $session->format('Y-m-d H:i:s') }}">
+                                                        <input type = "hidden" name = "cinema" value = "{{ $cinema }}">
+                                                        <button type = "submit" data-cinema = "{{ $cinema }}" class = "session_time">{{ $session->format('H:i') }}</button>
+                                                    </form>
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr></hr>
+                    @endif
                 </div>
                 <div class = "film_page_characteristics">
                     <table>

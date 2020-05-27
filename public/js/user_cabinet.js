@@ -37,7 +37,7 @@ function getMyBonuses(event) {
     $.ajax({
         url: '/api/get/user/bonuses',
         type: "POST",
-        data: { paramName: parameter, paramValue: this.value},
+        data: {},
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
             'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),

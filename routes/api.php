@@ -19,6 +19,7 @@ Route::post('/get/session/times', 'FilmController@getNewSessionTimes');
 Route::post('/get/films/data', 'FilmController@getFilmsData')->middleware('auth:api');
 Route::post('/get/cinema/data', 'FilmController@getCinemaData')->middleware('auth:api');
 Route::post('/get/hall/data', 'FilmController@getHallData')->middleware('auth:api');
+Route::post('save/user/wanted', 'UserController@saveUserWanted')->middleware('auth:api');
 
 Route::post('/get/user/tickets', 'UserController@getAllTickets')->middleware('auth:api');
 Route::post('/get/user/bonuses', 'UserController@getUserBonuses')->middleware('auth:api');

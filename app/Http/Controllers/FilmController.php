@@ -207,22 +207,24 @@ class FilmController extends Controller
     public function getSessionTimes($filmId, $filmSessionDays)
     {
         $result = [];
-        $sessions = SessionTime::select('cinema_name', 'datetime_shown', 'cinema_id')->where([
-            ['film_id', '=', $filmId],
-            ['date_shown', '=', $filmSessionDays[0]->date_shown]
-        ])->get();
+        if (!$filmSessionDays->isEmpty()) {
+            $sessions = SessionTime::select('cinema_name', 'datetime_shown', 'cinema_id')->where([
+                ['film_id', '=', $filmId],
+                ['date_shown', '=', $filmSessionDays[0]->date_shown]
+            ])->get();
 
-        foreach ($sessions as $session) {
-            if (array_key_exists($session->cinema_name, $result)) {
-                array_push($result[$session->cinema_name]['sessions'], $session->datetime_shown);
-            } else {
-                $result[$session->cinema_name]['sessions'] = [$session->datetime_shown];
+            foreach ($sessions as $session) {
+                if (array_key_exists($session->cinema_name, $result)) {
+                    array_push($result[$session->cinema_name]['sessions'], $session->datetime_shown);
+                } else {
+                    $result[$session->cinema_name]['sessions'] = [$session->datetime_shown];
+                }
+
+                $result[$session->cinema_name]['cinemaId'] = 'cinema/'.$session->cinema_id;
             }
 
-            $result[$session->cinema_name]['cinemaId'] = 'cinema/'.$session->cinema_id;
-        }
-
-        return $result;
+            return $result;
+        } else return [];
     }
 
     public function getSessionPlaces($filmId, $sessionTime)
@@ -240,16 +242,16 @@ class FilmController extends Controller
         $sessionDate = $request->post('sessionDate');
         $filmId = $request->post('filmId');
         
-        $newSessionData = SessionTime::select('cinema_name', 'datetime_shown')->where([
+        $newSessionData = SessionTime::select('cinema_name', 'datetime_shown', 'cinema_id')->where([
             ['date_shown', $sessionDate],
             ['film_id', $filmId]
         ])->get();
 
         foreach ($newSessionData as $session) {
             if (array_key_exists($session->cinema_name, $result)) {
-                array_push($result[$session->cinema_name], $session->datetime_shown);
+                array_push($result[$session->cinema_name]['dates'], $session->datetime_shown);
             } else {
-                $result[$session->cinema_name] = [$session->datetime_shown];
+                $result[$session->cinema_name] = ['dates' => [$session->datetime_shown], 'cinemaUrl' => 'cinema/'.$session->cinema_id];
             }
         }
         
@@ -261,9 +263,9 @@ class FilmController extends Controller
         $html = '<tbody>';
 
         foreach ($newSessionData as $cinema => $sessions) {
-            $html .= "<tr><td>Кинотеатр $cinema:</td>";
+            $html .= "<tr><td><a href = ".url($sessions['cinemaUrl'])." >Кинотеатр $cinema:</a></td>";
             
-            foreach ($sessions as $session) {
+            foreach ($sessions['dates'] as $session) {
                 $html .= "
                 <td>
                     <form action = ".url('book/film')." method = 'POST'>

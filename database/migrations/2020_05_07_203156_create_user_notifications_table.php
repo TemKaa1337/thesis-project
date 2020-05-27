@@ -16,8 +16,7 @@ class CreateUserNotificationsTable extends Migration
         Schema::create('user_notifications', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('user_chat_id');
-            $table->string('film_name');
+            $table->integer('film_id');
         });
     }
 

@@ -186,12 +186,12 @@ class BookController extends Controller
         $balance = $placesCount % 10;
         if ($placesCount == 1 || $balance == 0) {
             $bonusNumber = random_int(0, 1);
-            $newUserBonusId = Bonuses::select('id', 'days_active')->get()[$bonusNumber];
+            $newUserBonus = Bonuses::select('id', 'days_active')->get()[$bonusNumber];
 
             UserBonuses::insert([
                 'user_id' => Auth::user()->id,
-                'bonus_id' => $newUserBonusId->id,
-                'expires_at' => date('Y-m-d', strtotime('+ '.$newUserBonusId->days_active.' day'))
+                'bonus_id' => $newUserBonus->id,
+                'expires_at' => date('Y-m-d', strtotime('+ '.$newUserBonus->days_active.' day'))
             ]);
         }
     }

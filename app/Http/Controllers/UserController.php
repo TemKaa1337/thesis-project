@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
 use App\UserBookedPlaces;
+use App\UserBonuses;
+use App\Bonuses;
 use App\Comments;
 use Auth;
 
@@ -127,11 +129,47 @@ class UserController extends Controller
     public function getUserBonuses(Request $request)
     {
         $userBonuses = UserBonuses::where('user_id', Auth::user()->id)->get();
+        if (isset($userBonuses[0])) {
+            $html = '';
+
+            foreach ($userBonuses as $bonus) {
+                $html .= "
+                    <div class = 'ticket_item' style = 'grid-template-columns: 1fr 1fr 1fr'>
+                            <div>
+                                <p>".$bonus->bonus->name."</p>
+                            </div>
+                            <div>
+                                <p>Бонус действителен до ".$bonus->expires_at->format('d.m.Y H:i')."</p>
+                            </div>
+                            <div>
+                                ".(function () use ($bonus) {
+                                    if ($bonus->axpires_at < date('Y-m-d H:i:s'))
+                                        return '<p class = "film_active">Активен</p>';
+                                    else
+                                        return '<p class = "film_disabled">Не активен</p>';
+                                })()."
+                            </div>
+                    </div>
+                ";
+            }
+
+            return response()->json(array('result' => $html), 200);
+        }
+
         return response()->json(array('result' => ''), 200);
     }
 
     public function getUserInfo(Request $request)
     {
+        return response()->json(array('result' => ''), 200);
+    }
+
+    public function saveUserWanted(Request $request)
+    {
+        dd($request->all());
+        $filmId = Films::where('name', $request->filmName)->get()[0];
+        // проверка есть ли в списке желаемого
+        // доабвить в список желаемого
         return response()->json(array('result' => ''), 200);
     }
 }

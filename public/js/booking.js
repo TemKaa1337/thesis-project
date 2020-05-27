@@ -11,6 +11,31 @@ document.querySelectorAll('.button_ban').forEach((item) => {
     item.onclick = banUser;
 });
 
+let wannaSee = document.querySelectorAll('.want_to_see');
+if (wannaSee.length !== 0) {
+    wannaSee[0].onclick = addFilmToWanted;
+}
+
+function addFilmToWanted(event) {
+    event.preventDefault();
+    
+    $.ajax({
+        url: '/api/save/user/wanted',
+        type: "POST",
+        data: { filmName: document.querySelectorAll('.want_to_see')[0].getAttribute('data-cinema')},
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+        },
+        success: function (data) {
+            alert('Фильм успешно добавлен с список желаемых к просмотру!');
+            let h1 = document.querySelectorAll('.want_to_see')[0];
+            let newH1 = '<h1>' + h1.getAttribute('data-cinema') + '</h1>';
+            document.getElementsByTagName('h1')[0].remove();
+            document.querySelectorAll('.film_page_description')[0].insertAdjacentHTML('afterbegin', newH1)
+        }
+    });
+}
 
 function showCinemaSessionTime(event) {
     let aTags = this.parentElement.parentElement.getElementsByTagName('td');
