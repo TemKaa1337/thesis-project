@@ -57,7 +57,7 @@
                     @if ($sessionTimes !== [])
                         <h1>{{ $filmDescription->name }}</h1>
                     @else
-                        <h1 data-cinema = "{{ $filmDescription->name }}" >{{ $filmDescription->name }}   <button type = "submit" data-cinema = "{{ $filmDescription->name }}" class = "want_to_see">Хочу посмотреть</button></h1>
+                        <h1 data-cinema = "{{ $filmDescription->name }}" >{{ $filmDescription->name }}   @if (Auth::user() )<button type = "submit" data-cinema = "{{ $filmDescription->name }}" class = "want_to_see">Хочу посмотреть</button> @endif</h1>
                     @endif
                     @if ($sessionTimes !== [])
                         <hr></hr>

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\FilmController;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\UserBookedPlaces;
 use App\UserBonuses;
+use App\UserNotifications;
 use App\Bonuses;
 use App\Comments;
+use App\Films;
+use App\User;
 use Auth;
 
 class UserController extends Controller
@@ -161,15 +165,100 @@ class UserController extends Controller
 
     public function getUserInfo(Request $request)
     {
-        return response()->json(array('result' => ''), 200);
+        $userInfo = User::where('id', Auth::user()->id)->get()[0];
+        $html = "
+            <div class = 'user_info_wrapper'>
+            <div class = 'row'>
+                <label for = 'name' class = ''>Имя:</label>
+                <div class = 'input name'>
+                    <input id = 'name' type = 'name' class = '' name = 'name' value = '".$userInfo->name."' required>
+                </div>
+            </div>
+            <div class = 'row'>
+                <label for = 'surname' class = ''>Фамилия:</label>
+                <div class = 'input surname'>
+                    <input id = 'surname' type='surname' class = '' name = 'surname' value = '".$userInfo->surname."' required>
+                </div>
+            </div>
+            <div class = 'row'>
+                <label for = 'email' class = ''>E-mail:</label>
+                <div class = 'input email'>
+                    <input id = 'email' type='text' class = '' name = 'email' value = '".$userInfo->email."' required>
+                </div>
+            </div>
+            <div class = 'row'>
+                <label for = 'old_password' class = ''>Старый пароль:</label>
+                <div class = 'input old_password'>
+                    <input id = 'old_password' type='password' class = '' name = 'old_password' required>
+                </div>
+            </div>
+            <div class = 'row'>
+                <label for = 'password' class = ''>Новый пароль:</label>
+                <div class = 'input password'>
+                    <input id = 'password' type='password' class = '' name = 'password' required>
+                </div>
+            </div>
+            <div class = 'row'>
+                <label for = 'confirm_password' class = ''>Подтвердите пароль:</label>
+                <div class = 'input confirm_password'>
+                    <input id = 'confirm_password' type='password' class = '' name = 'confirm_password' required>
+                </div>
+            </div>
+            <div class = 'row'>
+                <label for = 'phone' class = ''>Номер телефона:</label>
+                <div class = 'input phone'>
+                    <input id = 'phone' type='text' class = '' name = 'phone' value = '".$userInfo->phone."' required>
+                </div>
+            </div>
+            <button id = 'change_credentials' type = 'submit'>
+                Сохранить
+            </button>
+        </div>
+        ";
+
+        return response()->json(array('result' => $html), 200);
     }
 
     public function saveUserWanted(Request $request)
     {
-        dd($request->all());
-        $filmId = Films::where('name', $request->filmName)->get()[0];
-        // проверка есть ли в списке желаемого
-        // доабвить в список желаемого
-        return response()->json(array('result' => ''), 200);
+        $filmId = Films::where('name', $request->filmName)->get()[0]->id;
+        $doesUserHave = UserNotifications::where([
+            'user_id' => Auth::user()->id,
+            'film_id' => $filmId
+        ])->get();
+        
+        if (!isset($doesUserHave[0])) {
+            UserNotifications::insert([
+                'user_id' => Auth::user()->id,
+                'film_id' => $filmId
+            ]);
+        }
+        
+        return response()->json(array('result' => 1), 200);
+    }
+
+    public function checkUserPassword(Request $request)
+    {
+        $password = User::where('id', Auth::user()->id)->get()[0]->password;
+
+        if (Hash::check($request->password, $password))
+            $result = true;
+        else
+            $result = false;
+
+        return response()->json(array('result' => $result), 200);
+    }
+
+    public function saveNewUserCredentials(Request $request)
+    {
+        User::where('id', Auth::user()->id)->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'phone' => $request->phone
+        ]);
+
+        return response()->json(array('result' => 'Данные успешно изменены!'), 200);
     }
 }

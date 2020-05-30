@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Mail\UserNotifications;
+use App\UserNotifications as Notifications;
 use App\Films;
+use App\User;
 use App\Slider;
 use App\SessionTime;
 use App\Comments;
@@ -297,6 +301,7 @@ class FilmController extends Controller
     {
         $hallPlaces = Cinema::select('halls')->get()[0]->halls;
         $halls = json_encode(json_decode($hallPlaces, true)[$request->hallName]);
+        $this->sendNotifications($request->filmId, $request->datetimeShown, $request->cinemaId);
         
         SessionTime::create([
             'film_id' => $request->filmId,
@@ -306,7 +311,7 @@ class FilmController extends Controller
             'cinema_id' => $request->cinemaId,
             'hall_places' => $halls
         ]);
-        
+
         return response()->json(array('result' => 1), 200);
     }
 
@@ -353,5 +358,23 @@ class FilmController extends Controller
     {
         SessionTime::where('id', $request->sessionId)->delete();
         return $this->getAllSessions($request);
+    }
+
+    public function sendNotifications($filmId, $datetimeShown, $cinemaName)
+    {
+        $sessionTimes = SessionTIme::where('film_id', $filmId)->get();
+
+        if (!isset($sessionTimes[0])) {
+            $notifications = Notifications::select('user_id')->where('film_id', $filmId)->get();
+
+            foreach ($notifications as $notification) {
+                $userEmail = User::select('email')->where('id', $notification->user_id)->get()[0]->email;
+                $filmName = Films::select('name')->where('id', $filmId)->get()[0]->name;
+                $data['filmName'] = $filmName;
+                $data['cinemaName'] = $cinemaName;
+                $data['sessinTime'] = date('d.m.Y H:i', strtotime($datetimeShown));
+                \Mail::to($userEmail)->send(new UserNotifications($data));
+            }
+        }
     }
 }

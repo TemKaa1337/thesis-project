@@ -55,15 +55,90 @@ function getMyInfo(event) {
     $.ajax({
         url: '/api/get/user/info',
         type: "POST",
-        data: { paramName: parameter, paramValue: this.value},
+        data: {  },
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
             'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
         },
         success: function (data) {
             document.getElementsByClassName('navigation_content')[0].innerHTML = data['result'];
+            document.getElementById('change_credentials').onclick = changeCredentials;
         }
     });
+}
+
+function changeCredentials(event) {
+    let name = document.getElementById('name').value;
+    let surname = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let oldPassword = document.getElementById('old_password').value;
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirm_password').value;
+    let phone = document.getElementById('phone').value;
+    let isChecked = checkCredentials(name, surname, email, oldPassword, password, confirmPassword, phone);
+
+    alert(isChecked);
+}
+
+function checkCredentials(name, surname, email, oldPassword, password, confirmPassword, phone) {
+    if (
+        name !== '' &&
+        surname !== '' &&
+        email !== '' &&
+        oldPassword !== '' &&
+        password !== '' &&
+        confirmPassword !== ''
+    ) {
+        let isPasswordValid;
+
+        $.ajax({
+            url: '/api/check/old/password',
+            type: "POST",
+            async: false,
+            data: { password: oldPassword },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+            },
+            success: function (data) {
+                isPasswordValid = data['result'];
+            }
+        });
+
+        if (isPasswordValid) {
+            if (password === confirmPassword) {
+                let result;
+
+                $.ajax({
+                    url: '/api/save/new/user/credentials',
+                    type: "POST",
+                    async: false,
+                    data: {
+                        name: name,
+                        surname: surname,
+                        email: email,
+                        password: password,
+                        phone: phone
+                    },
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                        'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+                    },
+                    success: function (data) {
+                        result = data['result'];
+                    }
+                });
+
+                return result;
+            } else {
+                return 'Пароли не совпадают';
+            }
+        } else {
+            return 'Старный пароль неверен!';
+        }
+    } else {
+        return 'Введите данные корректно!';
+    }
 }
 
 function removeTicket(event) {

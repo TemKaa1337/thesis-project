@@ -25,6 +25,9 @@ Route::post('/get/user/tickets', 'UserController@getAllTickets')->middleware('au
 Route::post('/get/user/bonuses', 'UserController@getUserBonuses')->middleware('auth:api');
 Route::post('/get/user/info', 'UserController@getUserInfo')->middleware('auth:api');
 
+Route::post('/check/old/password', 'UserController@checkUserPassword')->middleware('auth:api');
+Route::post('/save/new/user/credentials', 'UserController@saveNewUserCredentials')->middleware('auth:api');
+
 Route::post('/reset/filters', 'FilmController@resetFilmFilters');
 
 Route::post('/book/places', [

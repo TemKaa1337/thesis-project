@@ -2,7 +2,11 @@ document.querySelectorAll('.film_date').forEach((item) => {
     item.onclick = showCinemaSessionTime;
 });
 
-document.getElementById('comment_submit').onsubmit = leaveComment;
+let commentButton = document.getElementById('comment_submit');
+if (commentButton !== null) {
+    commentButton.onsubmit = leaveComment;
+}
+// document.getElementById('comment_submit').onsubmit = leaveComment;
 
 document.querySelectorAll('.button_delete').forEach((item) => {
     item.onclick = deleteComment;
@@ -18,7 +22,7 @@ if (wannaSee.length !== 0) {
 
 function addFilmToWanted(event) {
     event.preventDefault();
-    
+    console.log('asdasd');
     $.ajax({
         url: '/api/save/user/wanted',
         type: "POST",

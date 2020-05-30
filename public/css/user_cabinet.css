@@ -129,3 +129,30 @@ p {
 .ticket_item_description {
 	display: inline-block;
 }
+
+.row {
+	padding: 5px;
+    margin: auto;
+}
+
+label {
+	margin-bottom: 10px;
+    font-size: 16px;
+	font-style: normal;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+button:focus, button:focus, button:focus{
+    outline: none;
+}
+
+.user_info_wrapper {
+	background-color: #E5E5E5;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
