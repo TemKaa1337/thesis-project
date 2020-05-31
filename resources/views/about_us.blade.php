@@ -8,9 +8,7 @@
 
         <link href = "{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
         <link href = "{{ URL::asset('css/slider.css') }}" rel="stylesheet" type="text/css" >
-        <link href = "{{ URL::asset('css/button.css') }}" rel="stylesheet" type="text/css" >
-        <link href = "{{ URL::asset('css/reset_button.css') }}" rel="stylesheet" type="text/css" >
-        <link href = "{{ URL::asset('css/dropdown.css') }}" rel="stylesheet" type="text/css" >
+        <link href = "{{ URL::asset('css/about_us.css') }}" rel="stylesheet" type="text/css" >
     </head>
     <body>
         <div class = "wrapper">
@@ -35,8 +33,8 @@
                 </nav>
             </div>
             <div></div>
-            <div></div>
 
+            <div></div>
             <div id="slider">
                 <a href="#" class="control_next">></a>
                 <a href="#" class="control_prev"><</a>
@@ -46,44 +44,19 @@
                     @endforeach
                 </ul>  
             </div>
-
             <div></div>
 
             <div></div>
-            <div class = "filter">
-                <label for = "filter" class = "film_filter">Выберите фильтр для фильмов:</label>
-                <span class = "dropdown">
-                    <select id = "filter" class = "film_filter_select">
-                        <option disabled selected value>Выберите параметр</option>
-                        <option value = "genre">Жанр</option>
-                        <option value = "date_shown">Дата показа</option>
-                        <option value = "cinema">Кинотеатр</option>
-                    </select>
-                </span>
-
-                <label for = "filter_value" class = "film_filter_value detailed">Выберите значение:</label>
-                <span class = "dropdown detailed">
-                    <select id = "filter_value" class = "film_filter_select_value">
-                    </select>
-                </span>
-                <a id = "reset_button" class = "reset_button detailed">Сбросить фильтр</a>
+            <div class = "content_about">
+                <p>Доброго времени суток, уважаемый посититель! Этот проект является дипломной работой на факульете компьютерных систем и сетей, специальности "программное обеспечение информационных технологий". Автор этого проекта - Артем Комаров. Это его ссылки на социальные сети.</p>
+                <ul>
+                    <li><a href = "https://github.com/TemKaa1337">Github Account</a></li>
+                    <li><a href = "https://vk.com/komaarov">Vkontakte</a></li>
+                    <li><a href = "https://www.linkedin.com/in/artem-komarov-904896192/">Linked in</a></li>
+                </ul>
             </div>
             <div></div>
 
-            <div></div>
-            <div class = "content">
-                @foreach ($films as $film)
-                    <div class = "event">
-                        <p class = "film_name">{{$film->name}}</p>
-                        <img class = "film_image_name" src = "{{ asset($film->preview_image) }}"></img>
-                        <div class = "short_film_description">
-                            <p class = "">Жанр: {{$film->genre}}</p>
-                            <a class = "button" href = "{{ url('/movie/'.$film->id) }}" >Смотреть описание</a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div></div>
             <div></div>
             <div class = "footer">
                 

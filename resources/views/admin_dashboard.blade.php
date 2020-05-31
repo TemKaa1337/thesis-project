@@ -18,8 +18,7 @@
                 <nav class = "nav_header">
                     <ul>
                         <li><a href = "{{ url('/') }}">Главная</a></li>
-                        <li><a href = "mainpage">Контакты</a></li>
-                        <li><a href = "mainpage">О нас</a></li>
+                        <li><a href = "{{ url('/about_us') }}">О нас</a></li>
                         @if (Auth::guest())
                             <li><a href = "{{ route('register') }}">Регистрация</a></li>
                             <li><a href = "{{ route('login') }}">Вход</a></li>
@@ -42,6 +41,7 @@
                         <li class = "selected" id = "add_film">Добавить новый фильм</li>
                         <li class = "" id = "add_session">Добавить сеансы</li>
                         <li class = "" id = "remove_session">Удалить сеансы</li>
+                        <li class = "" id = "user_list">Список пользователей</li>
                     </ul>
                 </nav>
                 <div id = "navigation_content" class = "navigation_content">

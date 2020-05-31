@@ -24,6 +24,10 @@ Route::post('save/user/wanted', 'UserController@saveUserWanted')->middleware('au
 Route::post('/get/user/tickets', 'UserController@getAllTickets')->middleware('auth:api');
 Route::post('/get/user/bonuses', 'UserController@getUserBonuses')->middleware('auth:api');
 Route::post('/get/user/info', 'UserController@getUserInfo')->middleware('auth:api');
+Route::post('/get/user/list', 'AdminController@getUsersList')->middleware('auth:api');
+
+Route::post('/ban/user', 'AdminController@banUser')->middleware('auth:api');
+Route::post('/delete/user', 'AdminController@deleteUser')->middleware('auth:api');
 
 Route::post('/check/old/password', 'UserController@checkUserPassword')->middleware('auth:api');
 Route::post('/save/new/user/credentials', 'UserController@saveNewUserCredentials')->middleware('auth:api');

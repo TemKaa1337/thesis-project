@@ -95,4 +95,14 @@ class PageController extends Controller
             'cinemaData' => $cinemaData[0]
         ]);
     }
+
+    public function renderAboutusPage()
+    {
+        $films = new FilmController();
+        $slider = $films->getFilmsSlider();
+        
+        return view('about_us', [
+            'sliders' => $slider
+        ]);
+    }
 }

@@ -93,4 +93,54 @@ class AdminController extends Controller
 
         return '';
     }
+
+    public function getUsersList(Request $request)
+    {
+        $html = '';
+        $users = User::all();
+        
+        foreach ($users as $user) {
+            $html .= "
+                <div class = 'user_list'>
+                    <div>
+                        <span class = 'dropdown'>
+                            <p class = 'dropdown_user'>".$user->name."</p>
+                        </span>
+                    </div>
+                    <div>
+                        <span class = 'dropdown'>
+                            <pclass = 'dropdown_user'>".$user->email."</p>
+                        </span>
+                    </div>".(function () use ($user) {
+                        if ($user->is_banned == false)
+                            return "
+                                <div>
+                                    <a data-user = ".$user->id." class = 'ban_button'>Заблокировать пользователя</a>
+                                </div>";
+                        else
+                            return '';
+                    })()."
+                    <div>
+                        <a data-user = ".$user->id." class = 'remove_button'>Удалить пользователя</a>
+                    </div>
+                </div>";
+        }
+        
+
+        return response()->json(array('result' => $html), 200);
+    }
+
+    public function banUser(Request $request)
+    {
+        User::where('id', $request->id)->update([
+            'is_banned' => true
+        ]);
+        return $this->getUsersList($request);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        User::where('id', $request->id)->delete();
+        return $this->getUsersList($request);
+    }
 }

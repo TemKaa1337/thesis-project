@@ -1,6 +1,7 @@
 document.getElementById('add_film').onclick = getNewFilmHtml;
 document.getElementById('add_session').onclick = getNewSession;
 document.getElementById('remove_session').onclick = getRemoveSession;
+document.getElementById('user_list').onclick = getListOfUsers;
 
 function removeSelected() {
     document.getElementsByClassName('selected')[0].className = '';
@@ -9,7 +10,7 @@ function removeSelected() {
 function getNewSession(event) {
     removeSelected();
     this.className = 'selected';
-    console.log(this);
+    
     $.ajax({
         url: '/api/get/films/data',
         type: "POST",
@@ -299,6 +300,78 @@ function removeSession(event) {
         type: "POST",
         data: {
             sessionId: this.getAttribute('data-session')
+        },
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+        },
+        success: function (data) {
+            if (data['result']) {
+                document.getElementById('navigation_content').innerHTML = data['result'];
+                setListeners()
+            }
+        }
+    });
+}
+
+function getListOfUsers(event) {
+    removeSelected()
+    this.className = 'selected';
+    $.ajax({
+        url: '/api/get/user/list',
+        type: "POST",
+        data: {},
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+        },
+        success: function (data) {
+            document.getElementById('navigation_content').style.display = 'block';
+            document.getElementById('navigation_content').innerHTML = data['result'];
+            setButtonListeners()
+        }
+    });
+}
+
+function setButtonListeners() {
+    let removes = document.getElementsByClassName('remove_button');
+    let bans = document.getElementsByClassName('ban_button');
+
+    for (let i = 0; i < removes.length; i ++) {
+        removes[i].onclick = removeUser;
+    }
+
+    for (let i = 0; i < bans.length; i ++) {
+        bans[i].onclick = banUser;
+    }
+}
+
+function removeUser(event) {
+    $.ajax({
+        url: '/api/delete/user',
+        type: "POST",
+        data: {
+            id: this.getAttribute('data-user')
+        },
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
+        },
+        success: function (data) {
+            if (data['result']) {
+                document.getElementById('navigation_content').innerHTML = data['result'];
+                setListeners()
+            }
+        }
+    });
+}
+
+function banUser(event) {
+    $.ajax({
+        url: '/api/ban/user',
+        type: "POST",
+        data: {
+            id: this.getAttribute('data-user')
         },
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),

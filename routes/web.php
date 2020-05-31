@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PageController@renderMainPage');
+Route::get('/about_us', 'PageController@renderAboutusPage');
 Route::get('/movie/{filmId}', 'PageController@renderFilmPage');
 Route::get('/cinema/{cinemaId}', 'PageController@renderCinemaPage');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
