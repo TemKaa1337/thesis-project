@@ -56,14 +56,23 @@ th, td {
 
 .film_date {
     display: block;
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    line-height: 35px;
     font-size: 20px;
     cursor: pointer;
+    border: 1px #E5E5E5 solid;
+    border-radius: 30px;
+}
+
+.text {
     text-align: center;
+    width: 35px;
 }
 
 .film_date:hover {
     border: 1px #5f5f5f solid;
-    border-radius: 35px;
 }
 
 .session_time {

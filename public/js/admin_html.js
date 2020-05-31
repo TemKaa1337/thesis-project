@@ -7,7 +7,9 @@ function removeSelected() {
 }
 
 function getNewSession(event) {
+    removeSelected();
     this.className = 'selected';
+    console.log(this);
     $.ajax({
         url: '/api/get/films/data',
         type: "POST",
@@ -50,7 +52,6 @@ function setListeners() {
 }
 
 function getNewSessionHtml(data) {
-    removeSelected()
     document.getElementById('navigation_content').style.display = 'block';
     let options = '<option disabled selected value>Название фильма</option>';
 

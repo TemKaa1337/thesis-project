@@ -27,6 +27,7 @@ Route::post('/get/user/info', 'UserController@getUserInfo')->middleware('auth:ap
 
 Route::post('/check/old/password', 'UserController@checkUserPassword')->middleware('auth:api');
 Route::post('/save/new/user/credentials', 'UserController@saveNewUserCredentials')->middleware('auth:api');
+Route::post('/save/film/info', 'FilmController@saveNewFilmInfo')->middleware('auth:api');
 
 Route::post('/reset/filters', 'FilmController@resetFilmFilters');
 

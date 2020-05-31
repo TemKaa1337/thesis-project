@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="api_token" content="{{ (Auth::user()) ? Auth::user()->api_token : '' }}">
+        <meta name="film_name" content="{{ $filmDescription->name }}">
         <title>Cinema ticket booking</title>
 
         <link href = "{{ URL::asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
@@ -55,9 +56,9 @@
                 </div>
                 <div class = "film_page_description">
                     @if ($sessionTimes !== [])
-                        <h1>{{ $filmDescription->name }}</h1>
+                        <h1 id = "film_name">{{ $filmDescription->name }}</h1>
                     @else
-                        <h1 data-cinema = "{{ $filmDescription->name }}" >{{ $filmDescription->name }}   @if (Auth::user() )<button type = "submit" data-cinema = "{{ $filmDescription->name }}" class = "want_to_see">Хочу посмотреть</button> @endif</h1>
+                        <h1 id = "film_name" data-cinema = "{{ $filmDescription->name }}" >{{ $filmDescription->name }}   @if (Auth::user() && !Auth::user()->hasAnyRoles(['admin', 'manager']))<button type = "submit" data-cinema = "{{ $filmDescription->name }}" class = "want_to_see">Хочу посмотреть</button> @endif</h1>
                     @endif
                     @if ($sessionTimes !== [])
                         <hr></hr>
@@ -66,15 +67,15 @@
                                 <tbody>
                                     <tr>
                                         @foreach ($sessionDayNames as $dayName)
-                                            <td>{{ $dayName }}</td>
+                                            <td class = "text">{{ $dayName }}</td>
                                         @endforeach
                                     </tr>
                                     <tr>
                                         @foreach ($sessionDayValues as $dayValue)
                                             @if ($loop->first)
-                                                <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "enabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
+                                                <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "enabled border"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
                                             @else
-                                                <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "disabled"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
+                                                <td data-date = "{{ $dayValue->format('Y-m-d') }}" data-film = "{{ $filmId }}" class = "disabled border"><span class = "film_date" >{{ $dayValue->format('d') }}</span></td>
                                             @endif
                                         @endforeach
                                     </tr>
@@ -111,31 +112,31 @@
                         <tbody>
                             <tr>
                                 <td>Дата показа:</td>
-                                <td>С {{$filmDescription->date_shown_from->format('d.m.Y')}} по {{$filmDescription->date_shown_to->format('d.m.Y')}}</td>
+                                <td id = "datetime_shown_edit">С {{$filmDescription->date_shown_from->format('d.m.Y')}} по {{$filmDescription->date_shown_to->format('d.m.Y')}}</td>
                             </tr>
                             <tr>
                                 <td>Страна:</td>
-                                <td>{{$filmDescription->country}}, {{$filmDescription->year}}</td>
+                                <td id = "country_edit">{{$filmDescription->country}}, {{$filmDescription->year}}</td>
                             </tr>
                             <tr>
                                 <td>Длительность:</td>
-                                <td>{{$filmDescription->duration}}</td>
+                                <td id = "duration_edit">{{$filmDescription->duration}}</td>
                             </tr>
                             <tr>
                                 <td>Жанр:</td>
-                                <td>{{$filmDescription->genre}}</td>
+                                <td id = "genre_edit">{{$filmDescription->genre}}</td>
                             </tr>
                             <tr>
                                 <td>Режиссер:</td>
-                                <td>{{$filmDescription->producer}}</td>
+                                <td id = "producer_edit">{{$filmDescription->producer}}</td>
                             </tr>
                             <tr>
                                 <td>Актерский состав:</td>
-                                <td>{{$filmDescription->actors}}</td>
+                                <td id = "actors_edit">{{$filmDescription->actors}}</td>
                             </tr>
                             <tr>
                                 <td>Возрастное ограничение:</td>
-                                <td>{{$filmDescription->age_restriction}}</td>
+                                <td id = "age_restrictions_edit">{{$filmDescription->age_restriction}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -144,16 +145,19 @@
                     <h3>Описание фильма</h3>
                     <p id = "p_description">{{$filmDescription->description}}</p>
                     <iframe width="560" height="315" src="{{ $filmDescription->trailer }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        @if (Auth::user())
-                            @if (!Auth::user()->is_banned)
-                                <div class = "leave_comment">
-                                    <form id = "comment_submit" method="post" onsubmit = "e.preventDefault()">
-                                        <textarea placeholder = "Оставьте отзыв." data-film = "{{ $filmId }}"></textarea>
-                                        <button class = "submit_comment" type="submit">Отправить</button>
-                                    </form>
-                                </div>
-                            @endif
+                    @if (Auth::user()->hasAnyRoles(['admin', 'manager']))
+                        <button id = "edit_film" style = "margin-top: 5px; width: 150px;" class = "submit_comment" type="submit">Редактировать</button>
+                    @endif
+                    @if (Auth::user())
+                        @if (!Auth::user()->is_banned)
+                            <div class = "leave_comment">
+                                <form id = "comment_submit" method="post" onsubmit = "e.preventDefault()">
+                                    <textarea placeholder = "Оставьте отзыв." data-film = "{{ $filmId }}"></textarea>
+                                    <button class = "submit_comment" type="submit">Отправить</button>
+                                </form>
+                            </div>
                         @endif
+                    @endif
                     <div class = "comment_wrapper">
                         @foreach ($comments as $comment)
                             <hr></hr>
@@ -189,5 +193,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src = "{{ URL::asset('js/slider.js') }}"></script>
         <script src = "{{ URL::asset('js/booking.js') }}"></script>
+        <script src = "{{ URL::asset('js/edit_film.js') }}"></script>
     </body>
 </html>

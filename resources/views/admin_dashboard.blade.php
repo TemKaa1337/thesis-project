@@ -40,8 +40,8 @@
                 <nav class = "navigation">
                     <ul id = "navigation">
                         <li class = "selected" id = "add_film">Добавить новый фильм</li>
-                        <li id = "add_session">Добавить сеансы</li>
-                        <li id = "remove_session">Удалить сеансы</li>
+                        <li class = "" id = "add_session">Добавить сеансы</li>
+                        <li class = "" id = "remove_session">Удалить сеансы</li>
                     </ul>
                 </nav>
                 <div id = "navigation_content" class = "navigation_content">
@@ -50,18 +50,12 @@
                             <p>Выберите изображение для превью фильма</p>
                             <input type = "file" id = "upload_film_image_preview_input">
                         </div>
-                        <!-- <div class = "new_film_image_preview">
-
-                        </div> -->
                     </div>
                     <div class = "content_item add_film">
                         <div class = "upload_film_image" >
                             <p>Выберите изображение для страницы фильма</p>
                             <input type = "file" id = "upload_film_image_input">
                         </div>
-                        <!-- <div class = "new_film_image">
-
-                        </div> -->
                     </div>
                     <div class = "content_item add_film">
                         <table>

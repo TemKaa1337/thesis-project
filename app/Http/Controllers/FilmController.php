@@ -377,4 +377,23 @@ class FilmController extends Controller
             }
         }
     }
+
+    public function saveNewFilmInfo(Request $request)
+    {
+        Films::where('name', $request->oldFilmName)->update([
+            'name' => $request->filmName,
+            'description' => $request->description,
+            'genre' => $request->genre,
+            'date_shown_from' => $request->datetimeShownFrom,
+            'date_shown_to' => $request->datetimeShownTo,
+            'country' => $request->country,
+            'year' => $request->year,
+            'duration' => $request->duration,
+            'producer' => $request->producer,
+            'actors' => $request->actors,
+            'age_restriction' => $request->ageRestrictions
+        ]);
+
+        return response()->json(array('result' => 1), 200);
+    }
 }

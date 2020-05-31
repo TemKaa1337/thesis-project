@@ -9,7 +9,7 @@ var chosenPlaces = 0;
 function choosePlace(event) {
     if (this.className.includes('free')) {
         if (chosenPlaces == 5) {
-            alert('vse nez9!!');
+            alert('Более пяти мест бронировать нельзя');
         } else {
             this.className = 'film_place user_busy';
             let row = this.getAttribute('data-row');
