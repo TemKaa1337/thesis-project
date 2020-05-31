@@ -132,7 +132,7 @@ class BookController extends Controller
             $this->updateBookedPlaces($userBookedPlaces, $request);
         }
 
-        return 'Места успешно забронированы! \n Забронированные места вы можете посмотреть в личном кабинете.';
+        return 'Места успешно забронированы! Забронированные места вы можете посмотреть в личном кабинете.';
     }
 
     public function updateBookedPlaces($bookedPlaces, $request)
